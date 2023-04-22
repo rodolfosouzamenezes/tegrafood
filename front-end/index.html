@@ -28,15 +28,9 @@
         <h1 class="subtitle">Bem vindo!</h1>
         <p class="description">faça o login para continuar</p>
 
-        <form id="form-signin">
-          <div class="input__container">
-            <i class="far fa-envelope"></i>
-            <input type="email" placeholder="E-mail">
-          </div>
-          <div class="input__container">
-            <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Senha"> 
-          </div>
+        <form id="form-signin" class="form__container">
+          <form-input icon-class="far fa-envelope" type="email" placeholder="Email" input-id="email"></form-input>
+          <form-input icon-class="fas fa-lock" type="password" placeholder="Senha" input-id="password"></form-input>
 
           <input type="submit" value="Entrar">
         </form>
@@ -51,6 +45,9 @@
       </div>
     </div>
   </div>
+
+  <!-- Components -->
+  <script src="./src/components/FormInput.js" defer></script>
 </body>
 
 </html>

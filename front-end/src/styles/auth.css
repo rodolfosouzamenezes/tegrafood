@@ -32,6 +32,10 @@
   margin-bottom: 28px;
 }
 
+.form__container {
+  width: 100%;
+}
+
 .line-center {
   text-align: center;
   position: relative;
