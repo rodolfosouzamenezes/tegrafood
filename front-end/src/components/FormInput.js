@@ -35,12 +35,12 @@ class FormInput extends HTMLElement {
         display: flex;
         width: 100%;
         margin-bottom: 28px;
-        padding: 16px;      
         border: 1px solid #EBF0FF;
         border-radius: 5px;
       }
       
       .input__container > i {
+        padding: 16px;      
         font-size: 20px;
         color: #9098B1;
       }
@@ -48,7 +48,7 @@ class FormInput extends HTMLElement {
       .input__container > input {
         flex: 1;
         border: none;
-        margin-left: 10px;
+        padding: 16px;      
         outline: none;
         color: var(--info-color);
         font-size: 14px;
