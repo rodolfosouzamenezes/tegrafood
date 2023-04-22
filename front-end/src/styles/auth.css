@@ -1,0 +1,66 @@
+@import url('global.css');
+
+.container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.container__left > img {
+  height: 100%;
+  width: auto;
+}
+
+.container__right {
+  flex: 1;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+  width: 40%;
+}
+
+.content *:not(:last-child, i) {
+  margin-bottom: 28px;
+}
+
+.line-center {
+  text-align: center;
+  position: relative;
+  width: 100%;
+  z-index: 2;
+}
+
+.line-center > span {
+  display: inline-block;
+  padding: 0 32px;
+  margin: 0;
+  background: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  color: #9098B1;
+}
+
+.line-center:after{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  border-top: solid 1px #EBF0FF;
+  z-index: -1;
+}
+
+.description > a {
+  color: #40BFFF;
+  font-weight: bold;
+  text-decoration: none;
+}
