@@ -43,11 +43,11 @@ body {
   transition: all 0.2s ease-in-out;
 }
 
-.btn-primary {
+.btn__primary {
   background-color: var(--secondary-color);
 
 }
 
-.btn-primary:hover {
+.btn__primary:hover {
   opacity: .7;
 }

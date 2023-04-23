@@ -18,6 +18,19 @@
   display: flex;
   justify-content: center; 
   align-items: center;
+  position: relative;
+}
+
+.container__right > .btn__back {
+  position: absolute;
+  decoration: none;
+  color: var(--info-color);
+  left: 32px;
+  top: 32px;
+}
+
+.container__right > .btn__back:hover {
+  opacity: .3;
 }
 
 .content {
@@ -25,7 +38,7 @@
   flex-direction: column;
   justify-content: center; 
   align-items: center;
-  width: 40%;
+  width: 400px;
 }
 
 .content *:not(:last-child, i) {
@@ -69,7 +82,11 @@
   text-decoration: none;
 }
 
-.btn-outlined {
+.description > a:hover {
+  text-decoration: underline;
+}
+
+.btn__outlined {
   z-index: 1;
   background-color: transparent;
   border: 1px solid #EBF0FF;
@@ -79,7 +96,7 @@
 }
 
 /* Adicionando as cores no icon da Google */
-.btn-outlined > .fa-google {
+.btn__outlined > .fa-google {
   background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
   -webkit-background-clip: text;
   background-clip: text;
@@ -91,7 +108,7 @@
   transition: all .5s ease-in-out;
 }
 
-.btn-outlined:hover > .fa-google {
+.btn__outlined:hover > .fa-google {
   background: white;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -99,8 +116,7 @@
   z-index: 1;
 }
 
-
-.btn-outlined > span {
+.btn__outlined > span {
   position: absolute;
   width: 25%;
   height: 100%;
@@ -113,26 +129,38 @@
   z-index: -1;
 }
 
-.btn-outlined:hover {
+.btn__outlined:hover {
   color: #FFFFFF;
 }
 
-.btn-outlined:hover > span {
+.btn__outlined:hover > span {
   transform: translateY(0) scale(2);
 }
 
-.btn-outlined > span:nth-child(2){
+.btn__outlined > span:nth-child(2){
   --n: 0;
 }
 
-.btn-outlined span:nth-child(3) {
+.btn__outlined span:nth-child(3) {
   --n: 1;
 }
 
-.btn-outlined span:nth-child(4) {
+.btn__outlined span:nth-child(4) {
   --n: 2;
 }
 
-.btn-outlined span:nth-child(5) {
+.btn__outlined span:nth-child(5) {
   --n: 3;
+}
+
+@media (max-width: 1066px) {
+  .container__left {
+    display: none;
+  }
+}
+
+@media (max-width: 476px) {
+  .content {
+    width: 80vw;
+  }
 }
