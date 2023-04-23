@@ -58,6 +58,10 @@ class FormInput extends HTMLElement {
         font-size: 14px;
         color: #9098B1;
       }
+
+      .input__container:focus-within {
+        outline: 2px solid var(--primary-color);
+      }
     `;
 
     return style;

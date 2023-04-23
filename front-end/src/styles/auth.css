@@ -86,6 +86,11 @@
   text-decoration: underline;
 }
 
+.description > a:focus {
+  outline: 2px solid var(--primary-color);
+  border-radius: 3px;
+}
+
 .btn__outlined {
   z-index: 1;
   background-color: transparent;
