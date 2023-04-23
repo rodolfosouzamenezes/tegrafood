@@ -30,3 +30,24 @@ body {
   font-size: 12px;
   color: rgba(34, 50, 99, 0.5);
 }
+
+.btn {
+  width: 100%;
+  padding: 20px;
+  border-radius: 8px;
+  color: #FFFFFF;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  font-size: 16px;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-primary {
+  background-color: var(--secondary-color);
+
+}
+
+.btn-primary:hover {
+  opacity: .7;
+}
