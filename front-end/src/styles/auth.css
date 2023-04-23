@@ -33,6 +33,12 @@
   opacity: .3;
 }
 
+.container__right > .btn__back:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 16px;
+  border-radius: 3px;
+}
+
 .content {
   display: flex;
   flex-direction: column;
