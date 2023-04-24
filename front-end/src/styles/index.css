@@ -52,3 +52,54 @@
 .nav__item-active a:before {
   left: 0;
 }
+
+.content__container {
+  flex: 1;
+}
+
+.header__container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  color: #FFFFFF;
+  background: var(--secondary-color);
+  margin-bottom: 24px
+}
+
+.header__container ul {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;  
+}
+
+.header__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 16px 16px 16px 0;
+  overflow: hidden;
+  background: var(--secondary-color);
+  color: #FFFFFF;
+  text-decoration: none;
+  transition: all .2s ease-in-out;
+}
+
+.header__item:hover {
+  background: #E7A527;
+}
+
+.header__item:hover img {
+  filter: brightness(.92);
+}
+
+.header__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all .01s linear;
+}
