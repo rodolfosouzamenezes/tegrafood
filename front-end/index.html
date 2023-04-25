@@ -84,58 +84,33 @@
 
             <div class="product__cta">
               <p>R$18,00</p>
-              <button class="btn btn__primary">Comprar</button>
-            </div>
-          </div>
-          <div class="product">
-            <div class="product__infos">
-              <img src="./src/assets/auth-image.webp" alt="">
-              <div class="product__description">
-                <h2 class="title">Açaí com frutas</h2>
-                <p class="description">(Açaí, banana, morango, uva, leite ninho em pó e leite condensado)</p>
-              </div>
-            </div>
-
-            <div class="product__cta">
-              <p>R$18,00</p>
-              <button class="btn btn__primary">Comprar</button>
-            </div>
-          </div>
-          <div class="product">
-            <div class="product__infos">
-              <img src="./src/assets/auth-image.webp" alt="">
-              <div class="product__description">
-                <h2 class="title">Açaí com frutas</h2>
-                <p class="description">(Açaí, banana, morango, uva, leite ninho em pó e leite condensado)</p>
-              </div>
-            </div>
-
-            <div class="product__cta">
-              <p>R$18,00</p>
-              <button class="btn btn__primary">Comprar</button>
-            </div>
-          </div>
-          <div class="product">
-            <div class="product__infos">
-              <img src="./src/assets/auth-image.webp" alt="">
-              <div class="product__description">
-                <h2 class="title">Açaí com frutas</h2>
-                <p class="description">(Açaí, banana, morango, uva, leite ninho em pó e leite condensado)</p>
-              </div>
-            </div>
-
-            <div class="product__cta">
-              <p>R$18,00</p>
-              <button class="btn btn__primary">Comprar</button>
+              <button class="btn btn__primary" onclick="myFunction()">Comprar</button>
             </div>
           </div>
 
         </div>
+        <my-snackbar text="Ítens organizados de A à Z"></my-snackbar>
       </section>
     </div>
   </div>
 
+  <script>
+    function myFunction() {
+    var x = document.querySelector("my-snackbar")
+
+    const shadowRoot = x.shadowRoot;
+    const element = shadowRoot.getElementById('snackbar');
+
+    element.className = "show__snackbar snackbar__container";
+
+    setTimeout(function(){ 
+      element.className = element.className.replace("show__snackbar", "snackbar__container"); 
+    }, 3000);
+}
+  </script>
+
   <!-- Components -->
+  <script src="./src/components/Snackbar.js" defer></script>
 </body>
 
 </html>

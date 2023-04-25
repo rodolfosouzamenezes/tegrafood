@@ -54,7 +54,9 @@
 }
 
 .content__container {
-  flex: 1;
+  height: 100vh;
+  width: 100%;
+  position: relative; 
 }
 
 .header__container {
@@ -133,7 +135,8 @@
   padding: 32px;
   overflow-x: hidden;
   overflow-y: auto;
-  height: 420px;
+  height: calc(100vh - 260px);
+  scrollbar-width: none;
 }
 
 .product {
