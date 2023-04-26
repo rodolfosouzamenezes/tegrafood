@@ -31,12 +31,12 @@
       <div class="nav__container">
         <nav class="nav" role="navigation">
           <ul class="nav__list">
-            <li class="nav__item nav__item-active"><a href="#">Todos</a></li>
-            <li class="nav__item"><a href="#">Pizza</a></li>
-            <li class="nav__item"><a href="#">Sobremesa</a></li>
-            <li class="nav__item"><a href="#">Pastel</a></li>
-            <li class="nav__item"><a href="#">Açaí</a></li>
-            <li class="nav__item"><a href="#">Bebidas</a></li>
+            <li id="category-all" class="nav__item"><a href="./">Todos</a></li>
+            <li id="category-0" class="nav__item"><a href="./?category=0">Pizza</a></li>
+            <li id="category-1" class="nav__item"><a href="./?category=1">Sobremesa</a></li>
+            <li id="category-2" class="nav__item"><a href="./?category=2">Pastel</a></li>
+            <li id="category-3" class="nav__item"><a href="./?category=3">Açaí</a></li>
+            <li id="category-4" class="nav__item"><a href="./?category=4">Bebidas</a></li>
           </ul>
         </nav>
       </div>
@@ -65,7 +65,7 @@
 
       <section class="content">
         <div class="content__top">
-          <h1>Produtos <span>Todos</span></h1>
+          <h1>Produtos <span id="category-selected">Todos</span></h1>
           <ul class="filter__list">
             <li id="filter-price" class="btn__circle filter__item">
               <i class="fas fa-filter"></i>
@@ -76,7 +76,7 @@
           </ul>
         </div>
         <div class="products__container">
-          <div class="product">
+          <div class="product" id="product-1">
             <div class="product__infos">
               <img src="./src/assets/auth-image.webp" alt="">
               <div class="product__description">
@@ -102,6 +102,9 @@
       console.log('myfunc');
     }
   </script>
+
+  <!-- JS -->
+  <script src="./src/js/index.js"></script>
 </body>
 
 </html>

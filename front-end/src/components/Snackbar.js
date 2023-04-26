@@ -1,4 +1,4 @@
-function showSnackbar(btnFunction, text) {
+function showSnackbar(btnFunction, text, btnText) {
   const mySnackbar = document.querySelector("my-snackbar")
   const shadowRoot = mySnackbar.shadowRoot;
   const snackbarContainer = shadowRoot.getElementById('snackbar');
@@ -11,6 +11,8 @@ function showSnackbar(btnFunction, text) {
 
   const btnSnackbar = shadowRoot.getElementById('btn-snackbar');
   btnSnackbar.onclick = handleBtnSackbar;
+  btnSnackbar.textContent = btnText;
+
 
   function handleBtnSackbar() {
     snackbarClassList.remove("show__snackbar");
@@ -44,7 +46,6 @@ class Snackbar extends HTMLElement {
 
     const btnSnackbar = document.createElement("span");
     btnSnackbar.id = "btn-snackbar";
-    btnSnackbar.textContent = "Cancelar";
 
     snackbarContainer.appendChild(text);
     snackbarContainer.appendChild(btnSnackbar);
