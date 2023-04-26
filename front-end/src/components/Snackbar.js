@@ -1,24 +1,24 @@
-function showSnackbar(myFunction, text) {
+function showSnackbar(btnFunction, text) {
   const mySnackbar = document.querySelector("my-snackbar")
   const shadowRoot = mySnackbar.shadowRoot;
   const snackbarContainer = shadowRoot.getElementById('snackbar');
-  
-  const snackbarClassList = snackbarContainer.classList;
-  snackbarClassList.add("show__snackbar");
 
   const snackbarText = shadowRoot.getElementById('text');
   snackbarText.textContent = text;
 
-  const btnCancel = shadowRoot.getElementById('btn-cancel');
-  btnCancel.onclick = cancelSnackbarFunction;
+  const snackbarClassList = snackbarContainer.classList;
+  snackbarClassList.add("show__snackbar");
 
-  function cancelSnackbarFunction() {
+  const btnSnackbar = shadowRoot.getElementById('btn-snackbar');
+  btnSnackbar.onclick = handleBtnSackbar;
+
+  function handleBtnSackbar() {
     snackbarClassList.remove("show__snackbar");
+    btnFunction()
   }
 
   setTimeout(() => {
     if (snackbarClassList.contains('show__snackbar')) {
-      myFunction();
       snackbarClassList.remove("show__snackbar");
     }
   }, 3000);
@@ -42,12 +42,12 @@ class Snackbar extends HTMLElement {
     const text = document.createElement("span");
     text.id = "text";
 
-    const btnCancel = document.createElement("span");
-    btnCancel.id = "btn-cancel";
-    btnCancel.textContent = "Cancelar";
+    const btnSnackbar = document.createElement("span");
+    btnSnackbar.id = "btn-snackbar";
+    btnSnackbar.textContent = "Cancelar";
 
     snackbarContainer.appendChild(text);
-    snackbarContainer.appendChild(btnCancel);
+    snackbarContainer.appendChild(btnSnackbar);
     return snackbarContainer;
   }
 
@@ -72,11 +72,11 @@ class Snackbar extends HTMLElement {
         bottom: 30px; 
       }
 
-      .snackbar__container > #btn-cancel {
+      .snackbar__container > #btn-snackbar {
         color: var(--secondary-color);
       }
 
-      .snackbar__container > #btn-cancel:hover {
+      .snackbar__container > #btn-snackbar:hover {
         text-decoration: underline;
         cursor: pointer;
       }
