@@ -1,3 +1,29 @@
+function showSnackbar(myFunction, text) {
+  const mySnackbar = document.querySelector("my-snackbar")
+  const shadowRoot = mySnackbar.shadowRoot;
+  const snackbarContainer = shadowRoot.getElementById('snackbar');
+  
+  const snackbarClassList = snackbarContainer.classList;
+  snackbarClassList.add("show__snackbar");
+
+  const snackbarText = shadowRoot.getElementById('text');
+  snackbarText.textContent = text;
+
+  const btnCancel = shadowRoot.getElementById('btn-cancel');
+  btnCancel.onclick = cancelSnackbarFunction;
+
+  function cancelSnackbarFunction() {
+    snackbarClassList.remove("show__snackbar");
+  }
+
+  setTimeout(() => {
+    if (snackbarClassList.contains('show__snackbar')) {
+      myFunction();
+      snackbarClassList.remove("show__snackbar");
+    }
+  }, 3000);
+}
+
 class Snackbar extends HTMLElement {
   constructor() {
     super();
@@ -14,11 +40,11 @@ class Snackbar extends HTMLElement {
     snackbarContainer.setAttribute("class", "snackbar__container");
 
     const text = document.createElement("span");
-    text.textContent = this.getAttribute("text");
+    text.id = "text";
 
     const btnCancel = document.createElement("span");
-    btnCancel.textContent = "Cancelar";
     btnCancel.id = "btn-cancel";
+    btnCancel.textContent = "Cancelar";
 
     snackbarContainer.appendChild(text);
     snackbarContainer.appendChild(btnCancel);

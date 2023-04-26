@@ -15,6 +15,9 @@
 
   <!-- Font Awesome - Icons -->
   <script src="https://kit.fontawesome.com/a21c1857b7.js" crossorigin="anonymous"></script>
+
+  <!-- Components -->
+  <script src="./src/components/Snackbar.js" defer></script>
 </head>
 
 <body>
@@ -84,33 +87,21 @@
 
             <div class="product__cta">
               <p>R$18,00</p>
-              <button class="btn btn__primary" onclick="myFunction()">Comprar</button>
+              <button class="btn btn__primary" onclick="showSnackbar(myFunction, 'Ítens organizados de A à Z')">Comprar</button>
             </div>
           </div>
 
         </div>
-        <my-snackbar text="Ítens organizados de A à Z"></my-snackbar>
+        <my-snackbar></my-snackbar>
       </section>
     </div>
   </div>
 
   <script>
     function myFunction() {
-    var x = document.querySelector("my-snackbar")
-
-    const shadowRoot = x.shadowRoot;
-    const element = shadowRoot.getElementById('snackbar');
-
-    element.className = "show__snackbar snackbar__container";
-
-    setTimeout(function(){ 
-      element.className = element.className.replace("show__snackbar", "snackbar__container"); 
-    }, 3000);
-}
+      console.log('myfunc');
+    }
   </script>
-
-  <!-- Components -->
-  <script src="./src/components/Snackbar.js" defer></script>
 </body>
 
 </html>
