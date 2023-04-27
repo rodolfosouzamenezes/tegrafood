@@ -1,0 +1,110 @@
+.btn {
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:disabled {
+  cursor: auto;
+  background: #F0F0F0;
+  color: #A7A5A5;
+}
+
+.btn:focus {
+  outline: 2px solid var(--primary-color);
+}
+
+.btn__primary {
+  color: #FFFFFF;
+  background: var(--secondary-color);
+}
+
+.btn__primary:hover {
+  opacity: .7;
+}
+
+.btn__circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  text-decoration: none;
+  transition: all .2s ease-in-out;
+}
+
+
+/* Hover efeito de bolhas */
+.btn__bubble {
+  z-index: 1;
+  overflow: hidden;
+  background: transparent;
+  border: 1px solid #EBF0FF;
+  color: #9098B1;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Adicionando as cores no icon da Google */
+.btn__bubble > .fa-google {
+  background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  position: absolute;
+  left: 20px;
+  z-index: 1;
+  transition: all .5s ease-in-out;
+}
+
+.btn__bubble:hover > .fa-google {
+  background: white;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  z-index: 1;
+}
+
+.btn__bubble > span {
+  position: absolute;
+  width: 25%;
+  height: 100%;
+  transform: translateY(150%);
+  border-radius: 50%;
+  background: var(--primary-color);
+  transition: all 0.5s ease-in-out;
+  left: calc(var(--n) * 25%);
+  transition-delay: calc(var(--n) * .1s);
+  z-index: -1;
+}
+
+.btn__bubble:hover {
+  color: #FFFFFF;
+}
+
+.btn__bubble:hover > span {
+  transform: translateY(0) scale(2);
+}
+
+.btn__bubble > span:nth-child(2){
+  --n: 0;
+}
+
+.btn__bubble span:nth-child(3) {
+  --n: 1;
+}
+
+.btn__bubble span:nth-child(4) {
+  --n: 2;
+}
+
+.btn__bubble span:nth-child(5) {
+  --n: 3;
+}

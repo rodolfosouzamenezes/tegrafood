@@ -114,23 +114,6 @@
   margin-left: 16px;
 }
 
-.filter__list {
-  display: flex;
-}
-
-.filter__item {
-  margin-left: 16px;
-  color: #A7A5A5;
-}
-
-.filter__item {
-  margin-left: 16px;
-}
-
-.filter__item:hover {
-  background: #F0F0F0;
-}
-
 .products__container {
   padding: 32px;
   overflow-x: hidden;
@@ -185,4 +168,73 @@
 
 .product__cta .btn {
   padding: 10px 20px;
+}
+
+
+.filter__list {
+  display: flex;
+  position: relative;
+  justify-content: flex-end;
+  min-width: 200px;
+}
+
+.filter__item {
+  margin-left: 16px;
+  color: #A7A5A5;
+  background: #FFFFFF;
+  font-size: 18px;
+}
+
+.filter__item:hover {
+  background: #F0F0F0;
+}
+
+.menu-list {
+  margin: 0;
+  display: block;
+  width: 100%;
+  padding: 12px;
+}
+
+.menu-list + .menu-list {
+  border-top: 1px solid #ddd;
+}
+
+.menu-item {
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+}
+
+.menu-sub-list {
+  display: none;
+  padding: 10px;
+  box-sizing: border-box;
+  background: #FFF;
+  color: #000;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  position: absolute;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  flex-direction: column;
+}
+
+.menu-sub-list *:not(:last-child) {
+  margin-bottom: 12px;
+}
+
+.menu-sub-list:hover {
+  display: flex;
+}
+
+.menu-button {
+  width: 100%;
+  padding: 10px 20px;
+}
+
+.filter__item:hover + .menu-sub-list {
+  display: flex;
 }

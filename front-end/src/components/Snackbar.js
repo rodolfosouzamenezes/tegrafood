@@ -60,7 +60,7 @@ class Snackbar extends HTMLElement {
         justify-content: space-between;
         padding: 16px; 
         min-width: 500px; 
-        background-color: var(--info-color); 
+        background: var(--info-color); 
         border-radius: 8px; 
         color: #FFFFFF; 
         font-size: 14px;
