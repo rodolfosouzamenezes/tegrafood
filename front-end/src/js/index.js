@@ -63,17 +63,17 @@ function sortProducts(direction) {
   // Mudando o ícone do botão dependendo da direção da ordenação
   // Desabilitando o botão selecionado
   icon.classList.remove('fa-sort-alpha-down', 'fa-sort-alpha-up');
-  icon.classList.add(direction === 'desc' ? 'fa-sort-alpha-up' : 'fa-sort-alpha-down');
+  icon.classList.add(direction === 'asc' ? 'fa-sort-alpha-down' : 'fa-sort-alpha-up');
   icon.style.color = 'var(--secondary-color)';
 
   buttons.forEach((button, index) => {
-    button.disabled = index !== (direction === 'desc' ? 1 : 0);
+    button.disabled = index !== (direction === 'asc' ? 1 : 0);
   });
 
   products.sort((a, b) => {
     const aTitle = a.querySelector('.title').textContent.toLowerCase();
     const bTitle = b.querySelector('.title').textContent.toLowerCase();
-    return direction === 'desc' ? bTitle.localeCompare(aTitle) : aTitle.localeCompare(bTitle);
+    return direction === 'asc' ? aTitle.localeCompare(bTitle) : bTitle.localeCompare(aTitle);
   });
 
   container.textContent = '';
