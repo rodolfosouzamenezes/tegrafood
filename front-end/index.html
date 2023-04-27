@@ -66,60 +66,55 @@
       <section class="content">
         <div class="content__top">
           <h1>Produtos <span id="category-selected">Todos</span></h1>
-          <ul class="filter__list">
+          <ul>
             <li id="filter-price">
               <button class="btn__circle filter__item">
                 <i class="fas fa-filter"></i>
               </button>
 
-              <ul class="menu-sub-list">
-                <li class="menu-item">
+              <ul class="filter__dropdown">
+                <li class="filter__dropdown-item">
                   <span>Filtrar por preço:</span>
                 </li>
-                <li class="menu-item">
-                  <button class="btn btn__primary menu-button">
+                <li class="filter__dropdown-item">
+                  <button class="btn btn__filter__dropdown btn__primary">
                     R$5 à R$25
                   </button>
                 </li>
-                <li class="menu-item">
-                  <button class="btn btn__primary menu-button">
+                <li class="filter__dropdown-item">
+                  <button class="btn btn__filter__dropdown btn__primary">
                     R$26 à R$45
                   </button>
                 </li>
-                <li class="menu-item">
-                  <button class="btn btn__primary menu-button">
+                <li class="filter__dropdown-item">
+                  <button class="btn btn__filter__dropdown btn__primary">
                     R$46 ou mais
                   </button>
                 </li>
-                <li class="menu-item">
-                  <button class="btn btn__primary menu-button">
+                <li class="filter__dropdown-item">
+                  <button disabled class="btn btn__filter__dropdown">
                     Remover filtro
                   </button>
                 </li>
               </ul>
             </li>
-            <li id="filter-alphabetical">
+            <li id="sort-alphabetical">
               <button class="btn__circle filter__item">
                 <i class="fas fa-sort-alpha-down"></i>
               </button>
 
-              <ul class="menu-sub-list">
-                <li class="menu-item">
+              <ul class="filter__dropdown">
+                <li class="filter__dropdown-item">
                   <span>Ordem</span>
                 </li>
-                <li class="menu-item">
-                  <button class="btn btn__primary menu-button">
+                <li class="filter__dropdown-item">
+                  <button onclick="sortProducts('desc')" class="btn btn__filter__dropdown btn__primary">
                     A à Z
                   </button>
                 </li>
-                <li class="menu-item">
-                  <button class="btn btn__primary menu-button">
+                <li class="filter__dropdown-item">
+                  <button onclick="sortProducts('asc')" class="btn btn__filter__dropdown btn__primary">
                     Z à A
-                  </button>
-                </li>
-                <li class="menu-item">
-                  <button disabled class="btn menu-button">
-                    Padrão
                   </button>
                 </li>
               </ul>
@@ -138,7 +133,7 @@
 
             <div class="product__cta">
               <p>R$18,00</p>
-              <button class="btn btn__primary"
+              <button class="btn" btn__primary
                 onclick="showSnackbar(myFunction, 'Ítens organizados de A à Z')">Comprar</button>
             </div>
           </div>

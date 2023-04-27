@@ -16,7 +16,7 @@ const spanCategorySelected = document.getElementById("category-selected");
 spanCategorySelected.textContent = CATEGORIES[categorySelected] || "Todos";
 
 const navItems = document.querySelectorAll('.nav__item');
-const navItemSelected = navItems[categorySelected+1] ? navItems[categorySelected+1] : navItems[0];
+const navItemSelected = navItems[categorySelected + 1] ? navItems[categorySelected + 1] : navItems[0];
 navItemSelected.classList.add("nav__item-active")
 
 loadProducts();
@@ -53,3 +53,32 @@ function productHTML(item) {
     </div>
   `;
 }
+
+function sortProducts(direction) {
+  const container = document.querySelector('.products__container');
+  const icon = document.querySelector('#sort-alphabetical i');
+  const products = Array.from(container.children);
+  const buttons = document.querySelectorAll('#sort-alphabetical .filter__dropdown button');
+
+  // Mudando o ícone do botão dependendo da direção da ordenação
+  // Desabilitando o botão selecionado
+  icon.classList.remove('fa-sort-alpha-down', 'fa-sort-alpha-up');
+  icon.classList.add(direction === 'desc' ? 'fa-sort-alpha-up' : 'fa-sort-alpha-down');
+  icon.style.color = 'var(--secondary-color)';
+
+  buttons.forEach((button, index) => {
+    button.disabled = index !== (direction === 'desc' ? 1 : 0);
+  });
+
+  products.sort((a, b) => {
+    const aTitle = a.querySelector('.title').textContent.toLowerCase();
+    const bTitle = b.querySelector('.title').textContent.toLowerCase();
+    return direction === 'desc' ? bTitle.localeCompare(aTitle) : aTitle.localeCompare(bTitle);
+  });
+
+  container.textContent = '';
+  products.forEach((product) => {
+    container.appendChild(product);
+  });
+}
+
