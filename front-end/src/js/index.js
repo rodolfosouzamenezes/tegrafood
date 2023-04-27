@@ -82,3 +82,35 @@ function sortProducts(direction) {
   });
 }
 
+function filterByPrice(minPrice, maxPrice) {
+  const container = document.querySelector('.products__container');
+  const products = Array.from(container.children);
+  const buttons = document.querySelectorAll('#filter-price .filter__dropdown button');
+
+  const icon = document.querySelector('#filter-price i');
+  icon.style.color = 'var(--secondary-color)';
+
+
+  // desabilitando o botão selecionado
+  buttons[0].disabled = minPrice === 5;
+  buttons[1].disabled = minPrice === 26;
+  buttons[2].disabled = minPrice === 46;
+
+  products.forEach((product) => {
+    const price = parseInt(product.querySelector('.product__cta p').textContent.substring(2));
+    if (minPrice === 46) {
+      if (price >= minPrice) {
+        product.style.display = 'flex';
+      } else {
+        product.style.display = 'none';
+      }
+    } else {
+      if (price >= minPrice && price <= maxPrice) {
+        product.style.display = 'flex';
+      } else {
+        product.style.display = 'none';
+      }
+    }
+  });
+}
+
