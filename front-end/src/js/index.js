@@ -97,7 +97,7 @@ function filterByPrice(minPrice, maxPrice) {
   buttons[1].disabled = minPrice === 26;
   buttons[2].disabled = minPrice === 46;
 
-  showSnackbar(`Ítens filtrados de R$${minPrice} ${maxPrice ? 'à R$'+maxPrice : 'ou mais'}`)
+  showSnackbar(`Ítens filtrados de R$${minPrice} ${maxPrice ? 'à R$' + maxPrice : 'ou mais'}`)
 
 
   products.forEach((product) => {
