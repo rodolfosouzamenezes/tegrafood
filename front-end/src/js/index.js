@@ -99,7 +99,6 @@ function filterByPrice(minPrice, maxPrice) {
 
   showSnackbar(`Ítens filtrados de R$${minPrice} ${maxPrice ? 'à R$' + maxPrice : 'ou mais'}`)
 
-
   products.forEach((product) => {
     const price = parseInt(product.querySelector('.product__cta p').textContent.substring(2));
     if (minPrice === 46) {

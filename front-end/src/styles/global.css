@@ -6,6 +6,18 @@
   --primary-color: #6A0000;
   --secondary-color: #DC9000;
   --info-color: #223263;
+
+  --text-2xl: 27px;
+  --text-xl: 22px;
+  --text-lg: 20px;
+  --text-md: 18px;
+  --text-sm: 12px;
+  
+  --size-2xl: 32px;
+  --size-xl: 24px;
+  --size-lg: 20px;
+  --size-md: 16px;
+  --size-sm: 8px;
 }
 
 body {
@@ -13,20 +25,24 @@ body {
   background: #FFFFFF;
   color: var(--info-color);
   font-weight: 500;
-  font-size: 18px;
+  font-size: var(--text-md);
+}
+
+h1 {
+  font-size: var(--text-2xl);
 }
 
 .title {
-  font-size: 22px;
+  font-size: var(--text-xl);
   font-weight: bold;
 }
 
 .subtitle {
-  font-size: 20px;
+  font-size: var(--text-lg);
   font-weight: bold;
 }
 
 .description {
-  font-size: 12px;
+  font-size: var(--text-sm);
   color: rgba(34, 50, 99, 0.5);
 }

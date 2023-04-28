@@ -58,11 +58,11 @@ class Snackbar extends HTMLElement {
         display: flex;
         justify-content: space-between;
         padding: 16px; 
-        min-width: 500px; 
+        min-width: 50%; 
         background: var(--info-color); 
         border-radius: 8px; 
         color: #FFFFFF; 
-        font-size: 14px;
+        font-size: var(--text-sm);
 
         visibility: hidden; 
         position: absolute; 
@@ -128,6 +128,12 @@ class Snackbar extends HTMLElement {
         to {
           bottom: 0; 
           opacity: 0;
+        }
+      }
+
+      @media (max-width: 668px) {
+        .snackbar__container {
+          min-width: 84%; 
         }
       }
     `;

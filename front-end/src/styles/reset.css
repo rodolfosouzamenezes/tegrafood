@@ -3,6 +3,7 @@
   margin: 0;
   vertical-align: baseline;
   list-style: none;
+  white-space: collapse;
   border: 0;
 }
 
