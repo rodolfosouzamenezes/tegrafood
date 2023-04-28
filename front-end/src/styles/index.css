@@ -116,10 +116,21 @@
 
 .products__container {
   padding: 32px;
+  padding-right: 18px;
   overflow-x: hidden;
   overflow-y: auto;
   height: calc(100vh - 260px);
   scrollbar-width: none;
+}
+
+.products__container::-webkit-scrollbar {
+  background: #F0F0F0;
+  width: 12px;
+}
+
+.products__container::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  border-radius: 8px;
 }
 
 .product {
