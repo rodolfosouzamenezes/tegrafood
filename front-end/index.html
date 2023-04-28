@@ -87,7 +87,7 @@
                   </button>
                 </li>
                 <li class="filter__dropdown-item">
-                  <button onclick="filterByPrice(46,9999)" class="btn btn__filter__dropdown btn__primary">
+                  <button onclick="filterByPrice(46)" class="btn btn__filter__dropdown btn__primary">
                     R$46 ou mais
                   </button>
                 </li>
@@ -117,33 +117,12 @@
           </ul>
         </div>
         <div class="products__container">
-          <div class="product" id="product-1">
-            <div class="product__infos">
-              <img src="./src/assets/auth-image.webp" alt="">
-              <div class="product__description">
-                <h2 class="title">Açaí com frutas</h2>
-                <p class="description">(Açaí, banana, morango, uva, leite ninho em pó e leite condensado)</p>
-              </div>
-            </div>
-
-            <div class="product__cta">
-              <p>R$18,00</p>
-              <button class="btn" btn__primary
-                onclick="showSnackbar(myFunction, 'Ítens organizados de A à Z')">Comprar</button>
-            </div>
-          </div>
 
         </div>
         <my-snackbar></my-snackbar>
       </section>
     </div>
   </div>
-
-  <script>
-    function myFunction() {
-      console.log('myfunc');
-    }
-  </script>
 
   <!-- JS -->
   <script src="./src/js/index.js"></script>

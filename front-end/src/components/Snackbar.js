@@ -1,4 +1,4 @@
-function showSnackbar(btnFunction, text, btnText) {
+function showSnackbar(text, btnText, btnFunction) {
   const mySnackbar = document.querySelector("my-snackbar")
   const shadowRoot = mySnackbar.shadowRoot;
   const snackbarContainer = shadowRoot.getElementById('snackbar');
@@ -11,12 +11,12 @@ function showSnackbar(btnFunction, text, btnText) {
 
   const btnSnackbar = shadowRoot.getElementById('btn-snackbar');
   btnSnackbar.onclick = handleBtnSackbar;
-  btnSnackbar.textContent = btnText;
-
+  btnSnackbar.textContent = btnText || "Cancelar";
 
   function handleBtnSackbar() {
     snackbarClassList.remove("show__snackbar");
-    btnFunction()
+    
+    btnFunction && btnFunction()
   }
 
   setTimeout(() => {
@@ -34,7 +34,6 @@ class Snackbar extends HTMLElement {
     shadow.appendChild(this.build());
     shadow.appendChild(this.styles());
   }
-
 
   build() {
     const snackbarContainer = document.createElement("div");

@@ -48,7 +48,7 @@ function productHTML(item) {
 
       <div class="product__cta">
         <p>${item.price}</p>
-        <button class="btn btn__primary" onclick="showSnackbar(myFunction, 'Ítem adicionado ao carrinho', 'Ir para o carrinho')">Comprar</button>
+        <button class="btn btn__primary" onclick="showSnackbar('Ítem adicionado ao carrinho', 'ir para o carrinho')">Comprar</button>
       </div>
     </div>
   `;
@@ -65,6 +65,7 @@ function sortProducts(direction) {
   icon.classList.remove('fa-sort-alpha-down', 'fa-sort-alpha-up');
   icon.classList.add(direction === 'asc' ? 'fa-sort-alpha-down' : 'fa-sort-alpha-up');
   icon.style.color = 'var(--secondary-color)';
+  showSnackbar(direction === 'asc' ? 'Ítens organizados de A à Z' : 'Ítens organizados de Z à A')
 
   buttons.forEach((button, index) => {
     button.disabled = index !== (direction === 'asc' ? 1 : 0);
@@ -95,6 +96,9 @@ function filterByPrice(minPrice, maxPrice) {
   buttons[0].disabled = minPrice === 5;
   buttons[1].disabled = minPrice === 26;
   buttons[2].disabled = minPrice === 46;
+
+  showSnackbar(`Ítens filtrados de R$${minPrice} ${maxPrice ? 'à R$'+maxPrice : 'ou mais'}`)
+
 
   products.forEach((product) => {
     const price = parseInt(product.querySelector('.product__cta p').textContent.substring(2));
