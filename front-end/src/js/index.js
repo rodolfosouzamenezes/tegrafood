@@ -117,3 +117,17 @@ function filterByPrice(minPrice, maxPrice) {
   });
 }
 
+const overlay = document.querySelector('.overlay');
+const menu = document.querySelector('.menu');
+const toggleMenu = document.getElementById('toggle-menu');
+
+toggleMenu.addEventListener('click', () => {
+  overlay.style.display = "flex";
+  menu.style.marginLeft = "0";
+  console.log('a');
+});
+
+overlay.addEventListener('click', () => {
+  menu.style.marginLeft = "-240px";
+  overlay.style.display = "none";
+});
