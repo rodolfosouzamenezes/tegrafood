@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Título e Favicon -->
+  <title>Tegrafood | Meu Carrinho</title>
+  <link rel="icon" type="imagem/png" href="./assets/favicon.ico" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./styles/pages/cart.css">
+
+  <!-- Font Awesome - Icons -->
+  <script src="https://kit.fontawesome.com/a21c1857b7.js" crossorigin="anonymous"></script>
+
+  <!-- Components -->
+  <script src="./components/Snackbar.js" defer></script>
+</head>
+
+<body>
+  <div class="container">
+    <header class="header__container">
+      <a class="header__item btn__circle" id="toggle-menu" href="../index.html">
+        <i class="fa fa-arrow-left"></i>
+      </a>
+
+      <ul>
+        <li>
+          <a class="header__item btn__circle" href="#">
+            <i class="fa fa-bell"></i>
+          </a>
+        </li>
+        <li>
+          <a class="header__item btn__circle" href="#">
+            <img src="./assets/auth-image.webp" alt="Foto de perfil">
+          </a>
+        </li>
+      </ul>
+    </header>
+
+    <section class="content">
+      <div class="content__top">
+        <h1>Meu Carrinho</h1>
+      </div>
+      <div class="cards__container">
+
+      </div>
+
+      <div class="content__bottom">
+        <div class="coupon__container">
+          <h2 class="title">Cupom de desconto</h2>
+          <div class="input__container">
+            <input type="text" placeholder="Ex: AA00AS">
+            <button class="btn btn__primary">
+              Adicionar
+            </button>
+          </div>
+        </div>
+        <div class="shopping__area">
+          <table class="table__container">
+            <thead>
+              <tr>
+                <th>Subtotal</th>
+                <th>Desconto</th>
+                <th>Entrega</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="sub-total">R$83,00</td>
+              </tr>
+              <tr>
+                <td id="discount">0%</td>
+              </tr>
+              <tr>
+                <td>
+                  <span id="shipping">CALCULAR</span>
+                </td>
+              </tr>
+              <tr>
+                <td id="total">R$83,00</td>
+              </tr>
+            <tbody>
+          </table>
+          <div class="cart__cta">
+            <a href="../index.html">Escolher mais</a>
+            <button class="btn btn__primary">
+              Fechar pedido
+              <i class="fa fa-shopping-cart"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <my-snackbar></my-snackbar>
+    </section>
+  </div>
+
+  <!-- JS -->
+  <script src="./js/cart.js"></script>
+</body>
+
+</html>

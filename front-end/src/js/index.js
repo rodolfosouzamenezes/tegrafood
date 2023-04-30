@@ -48,7 +48,7 @@ function productHTML(item) {
 
       <div class="product__cta">
         <p>${item.price}</p>
-        <button class="btn btn__primary" onclick="showSnackbar('Ítem adicionado ao carrinho', 'ir para o carrinho')">Comprar</button>
+        <button class="btn btn__primary" onclick="addToCart(${item.id})">Comprar</button>
       </div>
     </div>
   `;
@@ -122,12 +122,21 @@ const menu = document.querySelector('.menu');
 const toggleMenu = document.getElementById('toggle-menu');
 
 toggleMenu.addEventListener('click', () => {
-  overlay.style.display = "flex";
-  menu.style.marginLeft = "0";
-  console.log('a');
+  overlay.classList.add("overlay__show");
+  menu.classList.add("menu__show");
 });
 
 overlay.addEventListener('click', () => {
-  menu.style.marginLeft = "-240px";
-  overlay.style.display = "none";
+  overlay.classList.remove("overlay__show");
+  menu.classList.remove("menu__show");
 });
+
+function addToCart(id) {
+  const goToCart = () => {
+    window.location.href = './src/cart.html';
+  }
+
+  console.log(id);
+  
+  showSnackbar('Ítem adicionado ao carrinho', 'ir para o carrinho', goToCart)
+}

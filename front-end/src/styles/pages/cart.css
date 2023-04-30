@@ -1,0 +1,181 @@
+@import url('../global.css');
+@import url('../ProductCard.css');
+@import url('../Header.css');
+
+.container {
+  flex: 1;
+}
+
+.header__container {
+  justify-content: space-between;
+}
+
+.header__container > .header__item {
+  display: flex;
+}
+
+.cards__container {
+  padding: 24px 32px;
+}
+
+.content__bottom {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 32px;
+}
+
+.coupon__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100px;
+  padding: 16px;
+  margin-right: 24px;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.input__container {
+  display: flex;
+  border: 1px solid #EBF0FF;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.input__container > input {
+  flex: 1;
+  border: none;
+  padding: 16px;      
+  outline: none;
+  color: var(--info-color);
+  font-size: 14px;
+}
+
+.input__container > input::placeholder {
+  font-size: 14px;
+  color: #9098B1;
+}
+
+.shopping__area {
+  padding-bottom: 32px;
+  width: 340px;
+}
+
+.table__container {
+  width: 340px;
+  font-size: 12px;
+  border-radius: 8px;
+  border: none;
+  white-space: nowrap;
+  border-collapse: collapse;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.table__container thead, 
+.table__container tbody, 
+.table__container thead th {
+  display: block;
+}
+
+.table__container thead {
+  float: left;
+}
+
+.table__container td, 
+.table__container th {
+  text-align: center;
+  text-transform: uppercase;
+  padding: 16px;
+  font-size: 16px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 140px;
+}
+
+.table__container td {
+  width: 200px;
+}
+
+.table__container thead th {
+  color: #ffffff;
+  text-align: left;
+  background: var(--secondary-color);
+  border-bottom: 1px solid #F8F8F8;
+}
+
+.table__container thead th:first-child {
+  border-top-left-radius: 8px;
+}
+
+.table__container thead th:last-child {
+  border-bottom-left-radius: 8px;
+  border-bottom: none;
+}
+
+.table__container tr:nth-child(odd) {
+  background: #F8F8F8;
+}
+
+.cart__cta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 24px 0;
+  width: 100%;
+}
+
+.cart__cta > button {
+  display: flex;
+  width: 50%;
+  justify-content: space-around;
+}
+
+.cart__cta > a {
+  color: var(--info-color);
+  transition: color .1s ease-in-out;
+}
+
+.cart__cta > a:hover {
+  color: var(--secondary-color);
+}
+
+#shipping {
+  text-decoration: underline;
+}
+
+#shipping:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 1018px) {
+  .coupon__container > .title {
+    width: 160px;
+  }
+}
+
+@media (max-width: 935px) {
+  .coupon__container > .title {
+    width: auto;
+  }
+
+  .coupon__container {
+    margin: 0;
+    margin-bottom: 32px;
+  }
+
+  .content__bottom {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}
+
+@media screen and (max-width: 681px) {
+  .title {
+    font-size: 16px;
+  }
+}
