@@ -122,3 +122,27 @@ function calculateTotal() {
     return `R$${value.toFixed(2)}`.replace('.', ',');
   }
 }
+
+// Simula um valor de entrega
+function setShipping() {
+  const shippingHTML = document.getElementById('shipping');
+  shippingHTML.textContent = "R$15,90";
+  calculateTotal();
+}
+
+
+function finalizeOrder() {
+  const container = document.querySelector('.cards__container');
+
+  container.innerHTML = '';
+
+  const subTotalHTML = document.getElementById('sub-total');
+  const discountHTML = document.getElementById('discount');
+  const shippingHTML = document.getElementById('shipping');
+  const totalHTML = document.getElementById('total');
+
+  subTotalHTML.textContent = "R$0,00";
+  discountHTML.textContent = "00%";
+  shippingHTML.textContent = "Calcular";
+  totalHTML.textContent = "R$0,00";
+}
