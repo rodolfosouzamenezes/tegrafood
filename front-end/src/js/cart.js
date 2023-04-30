@@ -34,6 +34,40 @@ function generateProductHTML(product) {
   `;
 }
 
+const couponInput = document.getElementById('coupon');
+const couponButton = document.getElementById('coupon-button');
+
+// Listener que habilita o botão do cupom
+couponInput.addEventListener('input', () => {
+  if (couponInput.value !== '') {
+    couponButton.disabled = false;
+  } else {
+    couponButton.disabled = true;
+  }
+});
+
+function verifyCoupon() {
+  // Simulando uma validação do cupom
+  let isValidCoupon = couponInput.value.startsWith('DESC');
+
+  if (!isValidCoupon) {
+    couponInput.value = '';
+    couponButton.disabled = true;
+    return
+  };
+
+  let coupon = couponInput.value.substring(4);
+
+  const discountHTML = document.getElementById('discount');
+  discountHTML.textContent = coupon + '%';
+
+  calculateTotal()
+
+  // Limpar os campos de entrada
+  couponInput.value = '';
+  couponButton.disabled = true;
+}
+
 function calculateTotal() {
   const container = document.querySelector('.cards__container');
   const productCards = Array.from(container.children);
