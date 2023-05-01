@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Título e Favicon -->
+  <title>Tegrafood ADM | Produtos</title>
+  <link rel="icon" type="imagem/png" href="./src/assets/favicon.ico" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./src/styles/pages/products-adm.css">
+
+  <!-- Font Awesome - Icons -->
+  <script src="https://kit.fontawesome.com/a21c1857b7.js" crossorigin="anonymous"></script>
+
+  <!-- Components -->
+  <script src="./src/components/Snackbar.js" defer></script>
+  <script src="./src/components/ProductPopup.js" defer></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="menu">
+      <div class="menu__logo">
+        <a href="./">
+          <img src="./src/assets/logo.webp" alt="Logo Tegrafood">
+        </a>
+      </div>
+      <div class="nav__container">
+        <nav class="nav" role="navigation">
+          <ul class="nav__list">
+            <li id="category-all" class="nav__item"><a href="./products-adm.html">Todos</a></li>
+            <li id="category-0" class="nav__item"><a href="./products-adm.html?category=0">Pizza</a></li>
+            <li id="category-1" class="nav__item"><a href="./products-adm.html?category=1">Sobremesa</a></li>
+            <li id="category-2" class="nav__item"><a href="./products-adm.html?category=2">Pastel</a></li>
+            <li id="category-3" class="nav__item"><a href="./products-adm.html?category=3">Açaí</a></li>
+            <li id="category-4" class="nav__item"><a href="./products-adm.html?category=4">Bebidas</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div class="content__container">
+      <div class="overlay"></div>
+      <header class="header__container">
+        <a class="header__item btn__circle" id="toggle-menu">
+          <i class="fa fa-bars"></i>
+        </a>
+
+        <ul>
+          <li>
+            <a class="header__item btn__circle" href="#">
+              <i class="fa fa-bell"></i>
+            </a>
+          </li>
+          <li>
+            <a class="header__item btn__circle" href="#">
+              <img src="./src/assets/auth-image.webp" alt="Foto de perfil">
+            </a>
+          </li>
+        </ul>
+      </header>
+
+      <section class="content">
+        <div class="content__top">
+          <h1>Produtos <span id="category-selected">Todos</span></h1>
+          <ul>
+            <li id="sort-alphabetical">
+              <button class="btn__circle filter__item">
+                <i class="fas fa-sort-alpha-down"></i>
+              </button>
+
+              <ul class="filter__dropdown">
+                <li class="filter__dropdown-item">
+                  <span>Ordem</span>
+                </li>
+                <li class="filter__dropdown-item">
+                  <button onclick="sortProducts('asc')" class="btn btn__primary btn__filter__dropdown">
+                    A à Z
+                  </button>
+                </li>
+                <li class="filter__dropdown-item">
+                  <button onclick="sortProducts('desc')" class="btn btn__primary btn__filter__dropdown">
+                    Z à A
+                  </button>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <button onclick="showProductPopup()" id="btn-new-product" class="btn btn__primary">
+                Adicionar
+                <i class="fas fa-plus"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="products__container">
+
+        </div>
+        <my-snackbar></my-snackbar>
+      </section>
+    </div>
+    <product-popup></product-popup>
+  </div>
+
+  <!-- JS -->
+  <script src="./src/js/products-adm.js"></script>
+</body>
+
+</html>
