@@ -3,7 +3,7 @@
     "id": 1,
     "title": "Pizza de Marguerita",
     "price": "R$60,90",
-    "imgUrl": "../assets/auth-image.webp",
+    "imgUrl": "./assets/auth-image.webp",
     "quantity": 2,
     "description": "(Muçarela, tomate, majericão , orégano)"
   },
@@ -11,7 +11,7 @@
     "id": 2,
     "title": "Torta de Leite Ninho",
     "price": "R$70,00",
-    "imgUrl": "../assets/auth-image.webp",
+    "imgUrl": "./assets/auth-image.webp",
     "quantity": 6,
     "description": "Massa de Baunilha; Creme de ninho Tradicional; Morango; Chantilly"
   },
@@ -19,7 +19,7 @@
     "id": 3,
     "title": "Lanche X-Burguer",
     "price": "R$22,00",
-    "imgUrl": "../assets/auth-image.webp",
+    "imgUrl": "./assets/auth-image.webp",
     "quantity": 2,
     "description": "(Pão, hamburguer, alface, tomate, queijo cheddar, cebola e picles)"
   },
@@ -27,7 +27,7 @@
     "id": 4,
     "title": "Pizza de Strogonofe",
     "price": "R$ 65,00",
-    "imgUrl": "../assets/auth-image.webp",
+    "imgUrl": "./assets/auth-image.webp",
     "quantity": 1,
     "description": "(Strogonofe, muçarela e orégano)"
   },
@@ -35,7 +35,7 @@
     "id": 5,
     "title": "Açaí com frutas",
     "price": "R$18,00",
-    "imgUrl": "../assets/auth-image.webp",
+    "imgUrl": "./assets/auth-image.webp",
     "quantity": 2,
     "description": "(Açaí, banana, morango, uva, leite ninho em pó e leite condensado)"
   },
@@ -43,14 +43,14 @@
     "id": 6,
     "title": "Refrigerante Coca-Cola  350ml",
     "price": "R$6,00",
-    "imgUrl": "../assets/auth-image.webp",
+    "imgUrl": "./assets/auth-image.webp",
     "quantity": 1
   },
   {
     "id": 7,
     "title": "Taça de sonho de valsa",
     "price": "R$15,00",
-    "imgUrl": "../assets/auth-image.webp",
+    "imgUrl": "./assets/auth-image.webp",
     "quantity": 2,
     "description": "(Chocolate branco e preto, sonho de valsa, morango e leite condensado)"
   },
@@ -58,7 +58,7 @@
     "id": 8,
     "title": "Barca de Açaí",
     "price": "R$22,00",
-    "imgUrl": "../assets/auth-image.webp",
+    "imgUrl": "./assets/auth-image.webp",
     "quantity": 2,
     "description": "(Açaí, banana, morango, uva, leite ninho em pó e leite condensado)"
   },
@@ -66,14 +66,14 @@
     "id": 9,
     "title": "Refrigerante Coca-Cola zero  350ml",
     "price": "R$5,00",
-    "imgUrl": "../assets/auth-image.webp",
+    "imgUrl": "./assets/auth-image.webp",
     "quantity": 1
   },
   {
     "id": 10,
     "title": "Lanche de Churrasco",
     "price": "R$30,00",
-    "imgUrl": "../assets/auth-image.webp",
+    "imgUrl": "./assets/auth-image.webp",
     "quantity": 2,
     "description": "(Pão, hamburguer, calabresa, iscas de carne, muçarela, cebola e picles)"
   }

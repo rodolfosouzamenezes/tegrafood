@@ -1,4 +1,4 @@
-const URL = `./js/products.json`;
+const URL = `./js/cart.json`;
 
 loadProducts();
 
@@ -15,11 +15,11 @@ function loadProducts() {
 }
 
 function generateProductHTML(product) {
-  const { title, description = "", price, imgUrl } = product;
+  const { title, description = "", price, imgUrl, quantity, id } = product;
   return `
-    <div class="card__container">
+    <div class="card__container" id="product-${id}">
       <div class="card__infos">
-        <img src=".${imgUrl}" alt="${title}">
+        <img src="${imgUrl}" alt="${title}">
         <div class="card__description">
           <h2 class="title">${title}</h2>
           <p class="description">${description}</p>
@@ -28,7 +28,11 @@ function generateProductHTML(product) {
 
       <div class="card__cta">
         <p>${price}</p>
-        <button class="btn btn__primary">Comprar</button>
+        <div class="quantity__container">
+          <button onclick="changeQuantity('-', ${id})" class="btn btn__primary">-</button>
+          <div class="quantity">${quantity}x</div>
+          <button onclick="changeQuantity('+', ${id})" class="btn btn__primary">+</button>
+        </div>
       </div>
     </div>
   `;
@@ -45,6 +49,21 @@ couponInput.addEventListener('input', () => {
     couponButton.disabled = true;
   }
 });
+
+function changeQuantity(operation, productId) {
+  const product = document.querySelector(`#product-${productId} .quantity`);
+  let quantity = parseInt(product.textContent);
+
+  if (operation === '+') {
+    quantity++;
+  } else if (operation === '-' && quantity > 1) {
+    quantity--;
+  }
+
+  product.textContent = `${quantity}x`;
+
+  calculateTotal()
+}
 
 function verifyCoupon() {
   // Simulando uma validação do cupom
@@ -99,8 +118,11 @@ function calculateTotal() {
     let subTotal = 0;
     productCards.forEach((card) => {
       const priceText = card.querySelector('.card__cta p').textContent;
+      const quantityText = card.querySelector('.card__cta .quantity').textContent;
       const price = parseFloat(priceText.replace("R$", "").replace(",", "."));
-      subTotal += price;
+      const quantity = parseInt(quantityText);
+
+      subTotal += price * quantity;
     });
     return subTotal;
   }

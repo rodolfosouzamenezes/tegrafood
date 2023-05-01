@@ -6,6 +6,25 @@
   flex: 1;
 }
 
+.quantity__container {
+  display: flex;
+}
+.quantity__container button:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.quantity__container button:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.quantity {
+  padding: 10px 20px;
+  background: var(--secondary-color);
+  color: #FFFFFF;
+}
+
 .header__container {
   justify-content: space-between;
 }
