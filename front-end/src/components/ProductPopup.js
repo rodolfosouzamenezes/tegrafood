@@ -10,7 +10,7 @@ function showProductPopup(productId) {
   }
 
   const popupText = shadowRoot.getElementById('title');
-  popupText.textContent = productId ? 'Editar Produto' : 'Novo Item';
+  popupText.textContent = productId ? 'Editar produto' : 'Novo item';
 
   const btnSend = shadowRoot.getElementById('btn-send');
   btnSend.textContent = productId ? 'Atualizar' : 'Cadastrar';
@@ -26,6 +26,7 @@ class ProductPopup extends HTMLElement {
   }
 
   build() {
+    // Overlay usado para dar desfocar o fundo e fechar o popup
     const overlay = document.createElement("div");
     overlay.classList.add("popup__overlay");
 
@@ -36,7 +37,38 @@ class ProductPopup extends HTMLElement {
     const title = document.createElement("h1");
     title.id = "title";
     popupContainer.appendChild(title);
+
+    const form = document.createElement("form");
+
+    const inputsContainer = document.createElement("div");
+
+    const inputsTop = document.createElement("div");
+    const inputsTopLeft = document.createElement("div");
+
+    const titleContainer = document.createElement("div");
+    const titleLabel = document.createElement("label");
+    const titleInput = document.createElement("input");
+    titleContainer.appendChild(titleLabel);
+    titleContainer.appendChild(titleInput);
     
+    const categoryContainer = document.createElement("div");
+    const categoryLabel = document.createElement("label");
+    const categoryInput = document.createElement("input");
+    categoryContainer.appendChild(categoryLabel);
+    categoryContainer.appendChild(categoryInput);
+    
+    const descriptionContainer = document.createElement("div");
+    const descriptionLabel = document.createElement("label");
+    const descriptionTextarea = document.createElement("textarea");
+    descriptionContainer.appendChild(descriptionLabel);
+    descriptionContainer.appendChild(descriptionTextarea);
+    
+    const priceContainer = document.createElement("div");
+    const priceLabel = document.createElement("label");
+    const priceInput = document.createElement("input");
+    priceContainer.appendChild(priceLabel);
+    priceContainer.appendChild(priceInput);
+
     const popupBottom = document.createElement("div");
     popupBottom.classList.add("popup__bottom");
     
@@ -86,6 +118,10 @@ class ProductPopup extends HTMLElement {
         border-radius: 8px; 
         color: var(--secondary-color); 
         width: 500px;
+      }
+
+      #title {
+        margin: 0;
       }
 
       .popup__bottom {

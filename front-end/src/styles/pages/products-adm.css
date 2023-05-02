@@ -1,4 +1,5 @@
 @import url('../global.css');
+@import url('../Multiselect.css');
 
 .container {
   display: flex;
@@ -302,6 +303,10 @@
   color: var(--secondary-color);
 }
 
+.popup__container form {
+  padding-top: 16px;
+}
+
 .form__buttons {
   display: flex;
   justify-content: flex-end;
@@ -312,6 +317,50 @@
 .form__inputs__top {
   display: flex;
   justify-content: space-between;
+}
+
+.input__container {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  margin-bottom: 12px;
+  color: #9098b1;
+  background: #FFFFFF;
+  border-radius: 5px;
+  padding: 8px;
+}
+
+.input__container label {
+  font-size: 14px;
+}
+
+.input__container input {
+  flex: 1;
+  padding-top: 8px;
+  border: none;
+  outline: none;
+  color: var(--info-color);
+}
+
+.input__container > input::placeholder {
+  font-size: 14px;
+  color: #9098B1;
+}
+
+.input__container:focus-within {
+  color: var(--secondary-color);
+  outline: 2px solid var(--secondary-color);
+}
+
+.input__container > textarea {
+  margin-top: 8px;
+  border: none;
+  outline: none;
+  color: var(--info-color);
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 24px;
+  max-height: 80px;
 }
 
 .box {

@@ -15,6 +15,9 @@
 
   <!-- Font Awesome - Icons -->
   <script src="https://kit.fontawesome.com/a21c1857b7.js" crossorigin="anonymous"></script>
+
+  <!-- Components -->
+  <script src="./components/FormInput.js" defer></script>
 </head>
 
 <body>
@@ -24,40 +27,40 @@
     </div>
 
     <div class="container__right">
-        <div class="content">
-          <h1 class="subtitle">Bem vindo!</h1>
-          <p class="description">faça o login para continuar</p>
-  
-          <form id="form-signin" class="form__container">
-            <form-input icon-class="far fa-envelope" type="email" placeholder="Email" input-id="email"></form-input>
-            <form-input icon-class="fas fa-lock" type="password" placeholder="Senha" input-id="password"></form-input>
-  
-            <button type="submit" class="btn btn__primary">Entrar</button>
-          </form>
-  
-          <div class="line-center">
-            <span>ou</span>
-          </div>
-  
-          <button type="submit" class="btn btn__bubble">
-            <i class="fab fa-google"></i>
-            Entrar com Google
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-  
-          <p class="description">
-            Não tem uma conta? <a href="./signup.html">Cadastre</a>
-          </p>
+      <div class="content">
+        <h1 class="subtitle">Bem vindo!</h1>
+        <p class="description">faça o login para continuar</p>
+
+        <form id="form-signin" class="form__container">
+          <form-input icon-class="far fa-envelope" type="email" placeholder="Email" input-id="email"></form-input>
+          <form-input icon-class="fas fa-lock" type="password" placeholder="Senha" input-id="password"></form-input>
+
+          <button type="submit" class="btn btn__primary">Entrar</button>
+        </form>
+
+        <div class="line-center">
+          <span>ou</span>
         </div>
+
+        <button type="submit" class="btn btn__bubble">
+          <i class="fab fa-google"></i>
+          Entrar com Google
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <p class="description">
+          Não tem uma conta? <a href="./signup.html">Cadastre</a>
+        </p>
+      </div>
 
     </div>
   </div>
 
-  <!-- Components -->
-  <script src="./components/FormInput.js" defer></script>
+  <!-- JS -->
+  <script src="./js/auth.js"></script>
 </body>
 
 </html>
