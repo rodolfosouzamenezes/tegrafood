@@ -163,6 +163,27 @@
   color: var(--secondary-color);
 }
 
+.product__container {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.product__container .card__container {
+  margin: 0;
+}
+
+.btn__remove {
+  background: transparent;
+  transition: all .3s ease;
+  width: 60px;
+  min-height: 100%;
+}
+
+.btn__remove:hover {
+  color: #FFFFFF;
+  background: #E00707;
+}
+
 #shipping {
   text-decoration: underline;
 }

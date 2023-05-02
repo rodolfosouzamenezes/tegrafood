@@ -17,23 +17,28 @@ function loadProducts() {
 function generateProductHTML(product) {
   const { title, description = "", price, imgUrl, quantity, id } = product;
   return `
-    <div class="card__container" id="product-${id}">
-      <div class="card__infos">
-        <img src="${imgUrl}" alt="${title}">
-        <div class="card__description">
-          <h2 class="title">${title}</h2>
-          <p class="description">${description}</p>
+    <div class="product__container" id="product-${id}">
+      <div class="card__container">
+        <div class="card__infos">
+          <img src="${imgUrl}" alt="${title}">
+          <div class="card__description">
+            <h2 class="title">${title}</h2>
+            <p class="description">${description}</p>
+          </div>
         </div>
-      </div>
 
-      <div class="card__cta">
-        <p>${price}</p>
-        <div class="quantity__container">
-          <button onclick="changeQuantity('-', ${id})" class="btn btn__primary">-</button>
-          <div class="quantity">${quantity}x</div>
-          <button onclick="changeQuantity('+', ${id})" class="btn btn__primary">+</button>
+        <div class="card__cta">
+          <p>${price}</p>
+          <div class="quantity__container">
+            <button onclick="changeQuantity('-', ${id})" class="btn btn__primary">-</button>
+            <div class="quantity">${quantity}x</div>
+            <button onclick="changeQuantity('+', ${id})" class="btn btn__primary">+</button>
+          </div>
         </div>
       </div>
+      <button onclick="removeFromCart(${id})" class="btn btn__remove">
+        <i class="fa fa-trash"></i>
+      </button>
     </div>
   `;
 }
@@ -64,6 +69,15 @@ function changeQuantity(operation, productId) {
 
   calculateTotal()
 }
+
+function removeFromCart(productId) {
+  const product = document.querySelector(`#product-${productId}`)
+
+  product.remove();
+
+  calculateTotal();
+}
+
 
 function verifyCoupon() {
   // Simulando uma validação do cupom
