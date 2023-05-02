@@ -288,6 +288,153 @@
   margin-left: 0 !important;
 }
 
+#popup-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup__container {
+  width: 500px;
+  padding: 32px;
+  border-radius: 8px;
+  background: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.form__buttons {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 64px;
+  width: 100%;
+}
+
+.form__inputs__top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.box {
+  display: block;
+  height: 200px;
+  width: 200px;
+  margin-left: 16px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  overflow: hidden;
+}
+
+.upload-options {
+  position: relative;
+  height: 75px;
+  background-color: var(--secondary-color);
+  cursor: pointer;
+  overflow: hidden;
+  text-align: center;
+  transition: background-color ease-in-out 150ms;
+}
+  
+.upload-options:hover {
+  opacity: .8;
+}
+
+.upload-options input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+.upload-options label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.upload-options label::after {
+  content: '\2b'; 
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 800;
+  position: absolute;
+  font-size: 40px;
+  color: rgba(230, 230, 230, 1);
+  top: calc(50% - 30px);
+  left: calc(50% - 10px);
+  z-index: 0;
+}
+
+.upload-options label span {
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.js--image-preview {
+  height: 140px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background-image: url('');
+  background-color: #FFFFFF;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.js--image-preview::after {
+  content: "\f03e"; /* Código do ícone "image" do Font Awesome */
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  position: relative;
+  font-size: 40px;
+  color: rgba(230, 230, 230, 1);
+  top: calc(50% - 20px);
+  left: calc(50% - 20px);
+  z-index: 0;
+}
+.js--image-preview.js--no-default::after {
+  display: none;
+}
+
+.form__buttons > .btn {
+  width: 140px;
+  padding: 20px;
+  color: #FFFFFF;
+}
+
+#btn-close {
+  background: transparent;
+  margin-right: 16px;
+}
+
+#btn-send {
+  background: var(--secondary-color);
+}
+
+#btn-close:hover {
+  background: rgba(255, 255, 255, 0.09)
+}
+#btn-send:hover {
+  filter: brightness(78%);
+}
+
+
+
+
 @media screen and (min-width: 769px) {
   .overlay {
     display: none;
