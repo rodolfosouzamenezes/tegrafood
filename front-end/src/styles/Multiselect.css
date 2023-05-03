@@ -64,6 +64,7 @@
   padding: 0px 25px 0px 10px;
   overflow: hidden;
 }
+
 .drop .drop-display .item .btnclose {
   color: #444;
   position: absolute;
@@ -73,7 +74,7 @@
   cursor: pointer;
 }
 .drop .drop-display .item .btnclose:hover {
-  opacity: 0.75;
+  color: var(--primary-color);
 }
 .drop .drop-display .item.remove {
   -webkit-animation: removeSelected 0.2s, hide 1s infinite;

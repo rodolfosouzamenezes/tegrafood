@@ -282,7 +282,7 @@
   transition: all .1s linear;
 }
 .overlay__show {
-  display: flex;
+  display: flex !important;
 }
 
 .menu__show {
@@ -290,7 +290,6 @@
 }
 
 #popup-overlay {
-  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -342,7 +341,8 @@
   color: var(--info-color);
 }
 
-.input__container > input::placeholder {
+.input__container > input::placeholder,
+.input__container > textarea::placeholder {
   font-size: 14px;
   color: #9098B1;
 }
@@ -359,7 +359,7 @@
   color: var(--info-color);
   max-width: 100%;
   min-width: 100%;
-  min-height: 24px;
+  min-height: 40px;
   max-height: 80px;
 }
 

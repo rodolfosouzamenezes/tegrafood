@@ -37,7 +37,7 @@ function loadProducts() {
 
 function productHTML(item) {
   return `
-    <div class="product">
+    <div class="product" id="product-${item.id}">
       <div class="product__infos">
         <img src="${item.imgUrl}" alt="${item.title}">
         <div class="product__description">
@@ -48,10 +48,74 @@ function productHTML(item) {
 
       <div class="product__cta">
         <p>${item.price}</p>
-        <button class="btn btn__primary" onclick="showProductPopup(${item.id})">Editar</button>
+        <button class="btn btn__primary" onclick="showProductPopup(${item.id + ', ' + item.categories})">Editar</button>
       </div>
     </div>
   `;
+}
+
+function showProductPopup(productId, ...categories) {
+  const overlay = document.getElementById("popup-overlay");
+  overlay.classList.add('overlay__show');
+  overlay.onclick = closePopup;
+
+  function closePopup(e) {
+    if (e.target !== this) return;
+    overlay.classList.remove('overlay__show');
+  }
+
+  const popupText = document.getElementById('popup-title');
+  popupText.textContent = productId ? 'Editar produto' : 'Novo item';
+
+  const btnSend = document.getElementById('btn-send');
+  btnSend.textContent = productId ? 'Atualizar' : 'Cadastrar';
+
+  const thumb = document.querySelector('.js--image-preview');
+  const productTitle = document.getElementById('title');
+  const productDescription = document.getElementById('description');
+  const productPrice = document.getElementById('price');
+
+  if (productId) {
+    const productConatiner = document.getElementById(`product-${productId}`);
+    const titleValue = productConatiner.querySelector('.title').textContent;
+    const imgValue = productConatiner.querySelector('img').src;
+    const descriptionValue = productConatiner.querySelector('.description').textContent;
+    const priceValue = productConatiner.querySelector('.product__cta  p').textContent;
+
+    
+    thumb.style.backgroundImage = `url('${imgValue}')`;
+    thumb.className += ' js--no-default';
+    productTitle.value = titleValue;
+    productDescription.value = descriptionValue;
+    productPrice.value = parseFloat(priceValue.replace('R$', '').replace(',', '.'));
+
+    myDrop.selected.length = 0;
+    myDrop.options = myDrop.options.map((option) => {
+      return {
+        html: option.html
+      }
+    });
+
+    categories.forEach((category) => {
+      myDrop.selected.push({
+        index: category,
+        state: 'add',
+        removed: false
+      })
+
+      myDrop.options[category].state = 'remove';
+    })
+
+    myDrop.render();
+    console.log(myDrop.selected);
+    console.log(myDrop.options);
+  } else {
+    thumb.style.backgroundImage = "url('')";
+    thumb.classList.remove('js--no-default');
+    productTitle.value = '';
+    productDescription.value = '';
+    productPrice.value = '';
+  }
 }
 
 function initImageUpload(box) {
@@ -59,27 +123,27 @@ function initImageUpload(box) {
 
   uploadField.addEventListener('change', getFile);
 
-  function getFile(e){
+  function getFile(e) {
     let file = e.currentTarget.files[0];
     checkType(file);
   }
-  
-  function previewImage(file){
-    let thumb = box.querySelector('.js--image-preview'),
-        reader = new FileReader();
 
-    reader.onload = function() {
+  function previewImage(file) {
+    let thumb = box.querySelector('.js--image-preview'),
+      reader = new FileReader();
+
+    reader.onload = function () {
       thumb.style.backgroundImage = 'url(' + reader.result + ')';
     }
     reader.readAsDataURL(file);
-    thumb.className += ' js--no-default';
+    thumb.classList.add('js--no-default');
   }
 
-  function checkType(file){
+  function checkType(file) {
     let imageType = /image.*/;
     if (!file.type.match(imageType)) {
       throw 'Datei ist kein Bild';
-    } else if (!file){
+    } else if (!file) {
       throw 'Kein Bild gewählt';
     } else {
       previewImage(file);
@@ -178,7 +242,7 @@ function addToCart(id) {
   }
 
   console.log(id);
-  
+
   showSnackbar('Ítem adicionado ao carrinho', 'ir para o carrinho', goToCart)
 }
 
@@ -186,180 +250,182 @@ function addToCart(id) {
 
 //Varun Dewan 2019
 var $ = {
-  get: function(selector){ 
-     var ele = document.querySelectorAll(selector);
-     for(var i = 0; i < ele.length; i++){
-        this.init(ele[i]);
-     }
-     return ele;
+  get: function (selector) {
+    var ele = document.querySelectorAll(selector);
+    for (var i = 0; i < ele.length; i++) {
+      this.init(ele[i]);
+    }
+    return ele;
   },
-  template: function(html){
-     var template = document.createElement('div');
-     template.innerHTML = html.trim();
-     return this.init(template.childNodes[0]);
+  template: function (html) {
+    var template = document.createElement('div');
+    template.innerHTML = html.trim();
+    return this.init(template.childNodes[0]);
   },
-  init: function(ele){
-     ele.on = function(event, func){ this.addEventListener(event, func); }
-     return ele;
+  init: function (ele) {
+    ele.on = function (event, func) { this.addEventListener(event, func); }
+    return ele;
   }
 };
 
 //Build the plugin
-var drop = function(info){var o = {
-  options: info.options,
-  selected: info.selected || [],
-  preselected: info.preselected || [],
-  open: false,
-  html: {
-     select: $.get(info.selector)[0],
-     options: $.get(info.selector + ' option'),
-     parent: undefined,
-  },
-  init: function(){
-     //Setup Drop HTML
-     this.html.parent = $.get(info.selector)[0].parentNode
-     this.html.drop = $.template('<div class="drop"></div>')
-     this.html.dropDisplay = $.template('<div class="drop-display">Display</div>')
-     this.html.dropOptions = $.template('<div class="drop-options">Options</div>')
-     this.html.dropScreen = $.template('<div class="drop-screen"></div>')
-     
-     this.html.parent.insertBefore(this.html.drop, this.html.select)
-     this.html.drop.appendChild(this.html.dropDisplay)
-     this.html.drop.appendChild(this.html.dropOptions)
-     this.html.drop.appendChild(this.html.dropScreen)
-     //Hide old select
-     this.html.drop.appendChild(this.html.select);
-     
-     //Core Events
-     var that = this;
-     this.html.dropDisplay.on('click', function(){ that.toggle() });
-     this.html.dropScreen.on('click', function(){ that.toggle() });
-     //Run Render
-     this.load()
-     this.preselect()
-     this.render();
-  },
-  toggle: function(){
-     this.html.drop.classList.toggle('open');
-  },
-  addOption: function(e, element){ 
-     var index = Number(element.dataset.index);
-     this.clearStates()
-     this.selected.push({
+var drop = function (info) {
+  var o = {
+    options: info.options,
+    selected: info.selected || [],
+    preselected: info.preselected || [],
+    open: false,
+    html: {
+      select: $.get(info.selector)[0],
+      options: $.get(info.selector + ' option'),
+      parent: undefined,
+    },
+    init: function () {
+      //Setup Drop HTML
+      this.html.parent = $.get(info.selector)[0].parentNode
+      this.html.drop = $.template('<div class="drop"></div>')
+      this.html.dropDisplay = $.template('<div class="drop-display">Display</div>')
+      this.html.dropOptions = $.template('<div class="drop-options">Options</div>')
+      this.html.dropScreen = $.template('<div class="drop-screen"></div>')
+
+      this.html.parent.insertBefore(this.html.drop, this.html.select)
+      this.html.drop.appendChild(this.html.dropDisplay)
+      this.html.drop.appendChild(this.html.dropOptions)
+      this.html.drop.appendChild(this.html.dropScreen)
+      //Hide old select
+      this.html.drop.appendChild(this.html.select);
+
+      //Core Events
+      var that = this;
+      this.html.dropDisplay.on('click', function () { that.toggle() });
+      this.html.dropScreen.on('click', function () { that.toggle() });
+      //Run Render
+      this.load()
+      this.preselect()
+      this.render();
+    },
+    toggle: function () {
+      this.html.drop.classList.toggle('open');
+    },
+    addOption: function (e, element) {
+      var index = Number(element.dataset.index);
+      this.clearStates()
+      this.selected.push({
         index: Number(index),
         state: 'add',
         removed: false
-     })
-     this.options[index].state = 'remove';
-     this.render()
-  },
-  removeOption: function(e, element){
-     e.stopPropagation();
-     this.clearStates()
-     var index = Number(element.dataset.index);
-     this.selected.forEach(function(select){
-        if(select.index == index && !select.removed){
-           select.removed = true
-           select.state = 'remove'
+      })
+      this.options[index].state = 'remove';
+      this.render()
+    },
+    removeOption: function (e, element) {
+      e.stopPropagation();
+      this.clearStates()
+      var index = Number(element.dataset.index);
+      this.selected.forEach(function (select) {
+        if (select.index == index && !select.removed) {
+          select.removed = true
+          select.state = 'remove'
         }
-     })
-     this.options[index].state = 'add'
-     this.render();
-  },
-  load: function(){
-     this.options = [];
-     for(var i = 0; i < this.html.options.length; i++){
+      })
+      this.options[index].state = 'add'
+      this.render();
+    },
+    load: function () {
+      this.options = [];
+      for (var i = 0; i < this.html.options.length; i++) {
         var option = this.html.options[i]
         this.options[i] = {
-           html:  option.innerHTML,
-           value: option.value,
-           selected: option.selected,
-           state: ''
+          html: option.innerHTML,
+          value: option.value,
+          selected: option.selected,
+          state: ''
         }
-     }
-  },
-  preselect: function(){
-     var that = this;
-     this.selected = [];
-     this.preselected.forEach(function(pre){
+      }
+    },
+    preselect: function () {
+      var that = this;
+      this.selected = [];
+      this.preselected.forEach(function (pre) {
         that.selected.push({
-           index: pre,
-           state: 'add',
-           removed: false
+          index: pre,
+          state: 'add',
+          removed: false
         })
         that.options[pre].state = 'remove';
-     })
-  },
-  render: function(){
-     this.renderDrop()
-     this.renderOptions()
-  },
-  renderDrop: function(){ 
-     var that = this;
-     var parentHTML = $.template('<div></div>')
-     this.selected.forEach(function(select, index){ 
+      })
+    },
+    render: function () {
+      this.renderDrop()
+      this.renderOptions()
+    },
+    renderDrop: function () {
+      var that = this;
+      var parentHTML = $.template('<div></div>')
+      this.selected.forEach(function (select, index) {
         var option = that.options[select.index];
-        var childHTML = $.template('<span class="item '+ select.state +'">'+ option.html +'</span>')
+        var childHTML = $.template('<span class="item ' + select.state + '">' + option.html + '</span>')
         var childCloseHTML = $.template(
-           '<span class="btnclose" data-index="'+select.index+'">x</span></span>')
-        childCloseHTML.on('click', function(e){ that.removeOption(e, this) })
+          '<span class="btnclose" data-index="' + select.index + '">x</span></span>')
+        childCloseHTML.on('click', function (e) { that.removeOption(e, this) })
         childHTML.appendChild(childCloseHTML)
         parentHTML.appendChild(childHTML)
-     })
-     this.html.dropDisplay.innerHTML = ''; 
-     this.html.dropDisplay.appendChild(parentHTML)
-  },
-  renderOptions: function(){  
-     var that = this;
-     var parentHTML = $.template('<div></div>')
-     this.options.forEach(function(option, index){
+      })
+      this.html.dropDisplay.innerHTML = '';
+      this.html.dropDisplay.appendChild(parentHTML)
+    },
+    renderOptions: function () {
+      var that = this;
+      var parentHTML = $.template('<div></div>')
+      this.options.forEach(function (option, index) {
         var childHTML = $.template(
-           '<a data-index="'+index+'" class="'+option.state+'">'+ option.html +'</a>')
-        childHTML.on('click', function(e){ that.addOption(e, this) })
+          '<a data-index="' + index + '" class="' + option.state + '">' + option.html + '</a>')
+        childHTML.on('click', function (e) { that.addOption(e, this) })
         parentHTML.appendChild(childHTML)
-     })
-     this.html.dropOptions.innerHTML = '';
-     this.html.dropOptions.appendChild(parentHTML)
-  },
-  clearStates: function(){
-     var that = this;
-     this.selected.forEach(function(select, index){ 
+      })
+      this.html.dropOptions.innerHTML = '';
+      this.html.dropOptions.appendChild(parentHTML)
+    },
+    clearStates: function () {
+      var that = this;
+      this.selected.forEach(function (select, index) {
         select.state = that.changeState(select.state)
-     })
-     this.options.forEach(function(option){ 
+      })
+      this.options.forEach(function (option) {
         option.state = that.changeState(option.state)
-     })
-  },
-  changeState: function(state){
-     switch(state){
+      })
+    },
+    changeState: function (state) {
+      switch (state) {
         case 'remove':
-           return 'hide'
+          return 'hide'
         case 'hide':
-           return 'hide'
+          return 'hide'
         default:
-           return ''
+          return ''
       }
-  },
-  isSelected: function(index){
-     var check = false
-     this.selected.forEach(function(select){ 
-        if(select.index == index && select.removed == false) check = true
-     })
-     return check
-  }
-}; o.init(); return o;}
+    },
+    isSelected: function (index) {
+      var check = false
+      this.selected.forEach(function (select) {
+        if (select.index == index && select.removed == false) check = true
+      })
+      return check
+    }
+  }; o.init(); return o;
+}
 
 
 //Set up some data
 var options = [
-  { html: 'cats', value: 'cats' },
-  { html: 'fish', value: 'fish' },
-  { html: 'squids', value: 'squids' },
-  { html: 'cats', value: 'whales' },
-  { html: 'cats', value: 'bikes' },
+  { html: 'Pizza', value: '0' },
+  { html: 'Sobremesa', value: '1' },
+  { html: 'Lanche', value: '2' },
+  { html: 'Açaí', value: '3' },
+  { html: 'Bebidas', value: '4' },
 ];
 
 var myDrop = new drop({
-  selector:  '#category',
-  preselected: [2]
+  selector: '#category',
+  preselected: [1]
 });
