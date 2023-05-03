@@ -10,6 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Generate a ERD Diagram
 // generator erd {
 //   provider = "prisma-erd-generator"
 // }
@@ -21,4 +22,30 @@ model User {
   googleId  String?  @unique
   avatarUrl String?
   createdAt DateTime @default(now())
+
+  carts Cart[]
+}
+
+model Product {
+  id           String  @id @default(cuid())
+  title        String
+  description  String?
+  priceInCents Int
+  imageUrl     String
+  categories   Int[]
+
+  carts Cart[]
+}
+
+model Cart {
+  id        String   @id @default(cuid())
+  userId    String
+  productId String
+  quantity  Int
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  @@unique([productId, userId])
 }

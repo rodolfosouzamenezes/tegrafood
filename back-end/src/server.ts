@@ -1,38 +1,22 @@
 import Fastify from "fastify";
-import { PrismaClient } from '@prisma/client'
-import { z } from "zod";
+
+import { productRoutes } from "./routes/product";
+import { cartRoutes } from "./routes/cart";
+
+const port = process.env.PORT ? Number(process.env.PORT) : 3333;
+const host = '0.0.0.0';
 
 const app = Fastify();
 
-const prisma = new PrismaClient();
+async function bootstrap() {
+  // Registrando as rotas
+  await app.register(productRoutes);
+  await app.register(cartRoutes);
 
-app.get('/users', async () => {
-  const users = await prisma.user.findMany();
+  await app.listen({ port })
+    .then(() => {
+      console.log(`[SUCCESS] Server is running on port ${port}: http://localhost:${port}/`)
+    })
+}
 
-  return { users };
-})
-
-app.post('/users', async (request, reply) => {
-  const createUserSchema = z.object({
-    name: z.string(),
-    email: z.string().email(),
-  })
-
-  const { name, email } = createUserSchema.parse(request.body);
-
-  await prisma.user.create({
-    data: {
-      name,
-      email,
-    }
-  })
-
-  return reply.status(201).send()
-})
-
-app.listen({
-  host: '0.0.0.0',
-  port: process.env.PORT ? Number(process.env.PORT) : 3333,
-}).then(() => {
-  console.log('Servidor está funcionando')
-})
+bootstrap();
