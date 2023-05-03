@@ -75,6 +75,7 @@ function showProductPopup(productId, ...categories) {
   const productDescription = document.getElementById('description');
   const productPrice = document.getElementById('price');
 
+  myDrop.selected.length = 0;
   if (productId) {
     const productConatiner = document.getElementById(`product-${productId}`);
     const titleValue = productConatiner.querySelector('.title').textContent;
@@ -82,14 +83,13 @@ function showProductPopup(productId, ...categories) {
     const descriptionValue = productConatiner.querySelector('.description').textContent;
     const priceValue = productConatiner.querySelector('.product__cta  p').textContent;
 
-    
+
     thumb.style.backgroundImage = `url('${imgValue}')`;
     thumb.className += ' js--no-default';
     productTitle.value = titleValue;
     productDescription.value = descriptionValue;
     productPrice.value = parseFloat(priceValue.replace('R$', '').replace(',', '.'));
 
-    myDrop.selected.length = 0;
     myDrop.options = myDrop.options.map((option) => {
       return {
         html: option.html
@@ -106,16 +106,25 @@ function showProductPopup(productId, ...categories) {
       myDrop.options[category].state = 'remove';
     })
 
-    myDrop.render();
-    console.log(myDrop.selected);
-    console.log(myDrop.options);
   } else {
     thumb.style.backgroundImage = "url('')";
     thumb.classList.remove('js--no-default');
     productTitle.value = '';
     productDescription.value = '';
     productPrice.value = '';
+
+    myDrop.options = options;
+
+    myDrop.selected.push({
+      index: 1,
+      state: 'add',
+      removed: false
+    })
+
+    myDrop.options[1].state = 'remove';
   }
+  
+  myDrop.render();
 }
 
 function initImageUpload(box) {
