@@ -17,19 +17,19 @@ export async function authRoutes(fastify: FastifyInstance) {
       password: z.string(),
       name: z.string(),
     })
-  
+
     const { email, password, name } = signupBody.parse(request.body)
-  
+
     let user = await prisma.user.findUnique({
       where: {
         email,
       }
     })
-  
+    
     if (user) {
       throw new Error('Usuário já existe')
     }
-  
+    
     user = await prisma.user.create({
       data: {
         email,
@@ -41,6 +41,7 @@ export async function authRoutes(fastify: FastifyInstance) {
     const token = fastify.jwt.sign({
       name: user.name,
       avatarUrl: user.avatarUrl,
+      isAdmin: email.includes("@tegrafood.com"),
     }, {
       sub: user.id,
       expiresIn: '7 days',
@@ -70,6 +71,7 @@ export async function authRoutes(fastify: FastifyInstance) {
     const token = fastify.jwt.sign({
       name: user.name,
       avatarUrl: user.avatarUrl,
+      isAdmin: email.includes("@tegrafood.com"),
     }, {
       sub: user.id,
       expiresIn: '7 days',
