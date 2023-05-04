@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify";
 import { z } from "zod";
 
 import { prisma } from "../lib/prisma";
+import { authenticate } from "../plugins/authenticate";
 
 export async function productRoutes(fastify: FastifyInstance) {
   fastify.get('/products', async () => {
@@ -11,7 +12,7 @@ export async function productRoutes(fastify: FastifyInstance) {
   })
 
   fastify.post('/products', async (request, reply) => {
-    const createPoolBody = z.object({
+    const createProductBody = z.object({
       title: z.string(),
       description: z.string(),
       priceInCents: z.number(),
@@ -21,7 +22,7 @@ export async function productRoutes(fastify: FastifyInstance) {
       ),
     })
 
-    const { title, description, categories, imageUrl, priceInCents } = createPoolBody.parse(request.body);
+    const { title, description, categories, imageUrl, priceInCents } = createProductBody.parse(request.body);
 
     try {
       await prisma.product.create({
@@ -36,6 +37,48 @@ export async function productRoutes(fastify: FastifyInstance) {
     } catch (err) {
       console.log(err);
     }
+
+    return reply.status(201)
+  })
+
+  fastify.post('/products/:productId/cart', {
+    onRequest: [authenticate]
+  }, async (request, reply) => {
+    const cartParams = z.object({
+      productId: z.string().uuid(),
+    })
+
+    const { productId } = cartParams.parse(request.params);
+
+    const cart = await prisma.cart.findUnique({
+      where: {
+        productId_userId: {
+          productId,
+          userId: request.user.sub
+        }
+      }
+    })
+
+    if (cart) {
+      await prisma.cart.update({
+        where: {
+          id: cart.id,
+        },
+        data: {
+          quantity: cart.quantity + 1,
+        }
+      })
+
+      return reply.status(200)
+    }
+
+    await prisma.cart.create({
+      data: {
+        productId,
+        userId: request.user.sub,
+        quantity: 1,
+      }
+    })
 
     return reply.status(201)
   })

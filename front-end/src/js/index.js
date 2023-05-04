@@ -1,6 +1,6 @@
 const urlCategorySelected = new URLSearchParams(window.location.search).get("category");
 const categorySelected = parseInt(urlCategorySelected);
-const url = `./src/js/products.json`;
+const url = `https://tegrafood-api.onrender.com/products`;
 
 const CATEGORIES = {
   0: "Pizza",
@@ -25,7 +25,7 @@ function loadProducts() {
   fetch(url)
     .then(response => response.json())
     .then(data => {
-      const products = data.filter((item) => {
+      const products = data.products.filter((item) => {
         return !isCategoryValid || item.categories.includes(categorySelected);
       }).map((item) => productHTML(item));
       document.querySelector('.products__container').innerHTML = products.join('')
@@ -36,10 +36,13 @@ function loadProducts() {
 }
 
 function productHTML(item) {
+  const price = item.priceInCents / 100;
+  const priceFormatted = `R$${price.toFixed(2).replace('.', ',')}`
+
   return `
     <div class="product">
       <div class="product__infos">
-        <img src="${item.imgUrl}" alt="${item.title}">
+        <img src="${item.imageUrl}" alt="${item.title}">
         <div class="product__description">
           <h2 class="title">${item.title}</h2>
           <p class="description">${item.description || ""} </p>
@@ -47,7 +50,7 @@ function productHTML(item) {
       </div>
 
       <div class="product__cta">
-        <p>${item.price}</p>
+        <p>${priceFormatted}</p>
         <button class="btn btn__primary" onclick="addToCart(${item.id})">Comprar</button>
       </div>
     </div>

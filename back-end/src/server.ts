@@ -1,5 +1,6 @@
 import Fastify from "fastify";
 import jwt from "@fastify/jwt";
+import cors from "@fastify/cors"
 
 import { authRoutes } from "./routes/auth";
 import { cartRoutes } from "./routes/cart";
@@ -15,9 +16,14 @@ async function bootstrap() {
     secret: String(process.env.JWT_SECRET),
   })
 
+  await app.register(cors, {
+    origin: ["http://127.0.0.1:5500", "https://tegrafood.vercel.app"],
+  })
+
   // Registrando as rotas
   await app.register(authRoutes);
   await app.register(productRoutes);
+  // await app.register(cartRoutes);
 
   await app.listen({ port })
     .then(() => {
