@@ -23,7 +23,7 @@ async function bootstrap() {
   // Registrando as rotas
   await app.register(authRoutes);
   await app.register(productRoutes);
-  // await app.register(cartRoutes);
+  await app.register(cartRoutes);
 
   await app.listen({ port })
     .then(() => {

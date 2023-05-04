@@ -11,10 +11,33 @@ export async function cartRoutes(fastify: FastifyInstance) {
     const products = await prisma.cart.findMany({
       where: {
         userId: request.user.sub,
+      },
+      select: {
+        id: true,
+        quantity: true,
+        product: {
+          select: {
+            title: true,
+            description: true,
+            imageUrl: true,
+            priceInCents: true,
+          }
+        }
       }
     });
 
-    return { products }
+    return {
+      cartProducts: products.map((product) => {
+        return {
+          id: product.id,
+          quantity: product.quantity,
+          title: product.product.title,
+          description: product.product.description,
+          imageUrl: product.product.imageUrl,
+          priceInCents: product.product.priceInCents,
+        }
+      })
+    };
   })
 
   fastify.delete('/cart', {
@@ -30,14 +53,14 @@ export async function cartRoutes(fastify: FastifyInstance) {
       console.log(err);
     }
 
-    return reply.status(204)
+    return reply.status(204).send()
   })
 
-  fastify.patch('card/:cartId/quantity', {
+  fastify.patch('/cart/:cartId/quantity', {
     onRequest: [authenticate]
   }, async (request, reply) => {
     const cartQuantityParams = z.object({
-      cartId: z.string().uuid(),
+      cartId: z.string().cuid(),
     })
 
     const cartQuantityBody = z.object({
@@ -52,18 +75,18 @@ export async function cartRoutes(fastify: FastifyInstance) {
         id: cartId,
       },
       data: {
-        quantity
+        quantity,
       }
     })
 
-    return reply.status(200);
+    return reply.status(200).send();
   })
 
-  fastify.delete('card/:cartId', {
+  fastify.delete('/cart/:cartId', {
     onRequest: [authenticate]
   }, async (request, reply) => {
     const cartQuantityParams = z.object({
-      cartId: z.string().uuid(),
+      cartId: z.string().cuid(),
     })
 
     const { cartId } = cartQuantityParams.parse(request.params);
@@ -74,6 +97,6 @@ export async function cartRoutes(fastify: FastifyInstance) {
       }
     })
 
-    return reply.status(204);
+    return reply.status(204).send();
   })
 }

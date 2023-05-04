@@ -38,14 +38,14 @@ export async function productRoutes(fastify: FastifyInstance) {
       console.log(err);
     }
 
-    return reply.status(201)
+    return reply.status(201).send()
   })
 
   fastify.post('/products/:productId/cart', {
     onRequest: [authenticate]
   }, async (request, reply) => {
     const cartParams = z.object({
-      productId: z.string().uuid(),
+      productId: z.string().cuid(),
     })
 
     const { productId } = cartParams.parse(request.params);
@@ -69,7 +69,7 @@ export async function productRoutes(fastify: FastifyInstance) {
         }
       })
 
-      return reply.status(200)
+      return reply.status(200).send()
     }
 
     await prisma.cart.create({
@@ -80,6 +80,6 @@ export async function productRoutes(fastify: FastifyInstance) {
       }
     })
 
-    return reply.status(201)
+    return reply.status(201).send()
   })
 }
