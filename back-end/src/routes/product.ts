@@ -11,7 +11,9 @@ export async function productRoutes(fastify: FastifyInstance) {
     return { products }
   })
 
-  fastify.post('/products', async (request, reply) => {
+  fastify.post('/products', {
+    onRequest: [authenticate]
+  }, async (request, reply) => {
     const createProductBody = z.object({
       title: z.string(),
       description: z.string(),
@@ -39,6 +41,38 @@ export async function productRoutes(fastify: FastifyInstance) {
     }
 
     return reply.status(201).send()
+  })
+
+  fastify.put('/products/:productId', {
+    onRequest: [authenticate]
+  }, async (request, reply) => {
+    const productParams = z.object({
+      productId: z.string().cuid(),
+    })
+
+    const updateProductBody = z.object({
+      title: z.string(),
+      description: z.string(),
+      priceInCents: z.number(),
+      imageUrl: z.string().url(),
+      categories: z.array(
+        z.number().min(0).max(4)
+      ),
+    })
+
+    const { productId } = productParams.parse(request.params);
+    const newProduct = updateProductBody.parse(request.body);
+
+    await prisma.product.update({
+      where: {
+        id: productId,
+      },
+      data: {
+        ...newProduct,
+      }
+    })
+
+    return reply.status(200).send()
   })
 
   fastify.post('/products/:productId/cart', {
