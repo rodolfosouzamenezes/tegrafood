@@ -1,17 +1,19 @@
 const token = localStorage.getItem('token');
-if (!token) {
-  window.location.replace('https://tegrafood.vercel.app/signin.html');
-}
-
 const isAdmin = localStorage.getItem('isAdmin') === "true";
 
-if (!isAdmin) {
-  window.location.replace('https://tegrafood.vercel.app/');
+window.onload = () => {
+  if (!token) {
+    window.location.replace('https://tegrafood.vercel.app/signin.html');
+  }
+
+  if (!isAdmin) {
+    window.location.replace('https://tegrafood.vercel.app/');
+  }
 }
 
 const urlCategorySelected = new URLSearchParams(window.location.search).get("category");
 const categorySelected = parseInt(urlCategorySelected);
-const url = `./src/js/products.json`;
+const url = `http://localhost:3333/products`;
 
 const CATEGORIES = {
   0: "Pizza",
@@ -36,7 +38,7 @@ function loadProducts() {
   fetch(url)
     .then(response => response.json())
     .then(data => {
-      const products = data.filter((item) => {
+      const products = data.products.filter((item) => {
         return !isCategoryValid || item.categories.includes(categorySelected);
       }).map((item) => productHTML(item));
       document.querySelector('.products__container').innerHTML = products.join('')
@@ -47,10 +49,13 @@ function loadProducts() {
 }
 
 function productHTML(item) {
+  const price = item.priceInCents / 100;
+  const priceFormatted = `R$${price.toFixed(2).replace('.', ',')}`
+
   return `
-    <div class="product" id="product-${item.id}">
+    <div class="product" id="${item.id}">
       <div class="product__infos">
-        <img src="${item.imgUrl}" alt="${item.title}">
+        <img src="${item.imageUrl}" alt="${item.title}">
         <div class="product__description">
           <h2 class="title">${item.title}</h2>
           <p class="description">${item.description || ""} </p>
@@ -58,14 +63,14 @@ function productHTML(item) {
       </div>
 
       <div class="product__cta">
-        <p>${item.price}</p>
+        <p>${priceFormatted}</p>
         <button class="btn btn__primary" onclick="showProductPopup(${item.id + ', ' + item.categories})">Editar</button>
       </div>
     </div>
   `;
 }
 
-function showProductPopup(productId, ...categories) {
+function showProductPopup(product, ...categories) {
   const overlay = document.getElementById("popup-overlay");
   overlay.classList.add('overlay__show');
   overlay.onclick = closePopup;
@@ -76,10 +81,10 @@ function showProductPopup(productId, ...categories) {
   }
 
   const popupText = document.getElementById('popup-title');
-  popupText.textContent = productId ? 'Editar produto' : 'Novo item';
+  popupText.textContent = product ? 'Editar produto' : 'Novo item';
 
   const btnSend = document.getElementById('btn-send');
-  btnSend.textContent = productId ? 'Atualizar' : 'Cadastrar';
+  btnSend.textContent = product ? 'Atualizar' : 'Cadastrar';
 
   const thumb = document.querySelector('.js--image-preview');
   const productTitle = document.getElementById('title');
@@ -87,12 +92,11 @@ function showProductPopup(productId, ...categories) {
   const productPrice = document.getElementById('price');
 
   myDrop.selected.length = 0;
-  if (productId) {
-    const productConatiner = document.getElementById(`product-${productId}`);
-    const titleValue = productConatiner.querySelector('.title').textContent;
-    const imgValue = productConatiner.querySelector('img').src;
-    const descriptionValue = productConatiner.querySelector('.description').textContent;
-    const priceValue = productConatiner.querySelector('.product__cta  p').textContent;
+  if (product) {
+    const titleValue = product.querySelector('.title').textContent;
+    const imgValue = product.querySelector('img').src;
+    const descriptionValue = product.querySelector('.description').textContent;
+    const priceValue = product.querySelector('.product__cta  p').textContent;
 
 
     thumb.style.backgroundImage = `url('${imgValue}')`;
@@ -137,6 +141,28 @@ function showProductPopup(productId, ...categories) {
   
   myDrop.render();
 }
+
+const form = document.querySelector('.form');
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault(); // previne o envio do formulário
+
+  const formData = new FormData(event.target);
+
+  const title = formData.get('title');
+  const category = formData.getAll('category');
+  const description = formData.get('description');
+  const price = formData.get('price');
+  const image = formData.get('image-upload'); // aqui você pega o arquivo de imagem, não o caminho
+
+  // faça o que precisa com os dados do formulário
+  console.log(title);
+  console.log(category);
+  console.log(description);
+  console.log(price);
+  console.log(image);
+});
+
 
 function initImageUpload(box) {
   let uploadField = box.querySelector('.image-upload');
@@ -208,40 +234,6 @@ function sortProducts(direction) {
   });
 }
 
-function filterByPrice(minPrice, maxPrice) {
-  const container = document.querySelector('.products__container');
-  const products = Array.from(container.children);
-  const buttons = document.querySelectorAll('#filter-price .filter__dropdown button');
-
-  const icon = document.querySelector('#filter-price i');
-  icon.style.color = 'var(--secondary-color)';
-
-
-  // desabilitando o botão selecionado
-  buttons[0].disabled = minPrice === 5;
-  buttons[1].disabled = minPrice === 26;
-  buttons[2].disabled = minPrice === 46;
-
-  showSnackbar(`Ítens filtrados de R$${minPrice} ${maxPrice ? 'à R$' + maxPrice : 'ou mais'}`)
-
-  products.forEach((product) => {
-    const price = parseInt(product.querySelector('.product__cta p').textContent.substring(2));
-    if (minPrice === 46) {
-      if (price >= minPrice) {
-        product.style.display = 'flex';
-      } else {
-        product.style.display = 'none';
-      }
-    } else {
-      if (price >= minPrice && price <= maxPrice) {
-        product.style.display = 'flex';
-      } else {
-        product.style.display = 'none';
-      }
-    }
-  });
-}
-
 const overlay = document.querySelector('.overlay');
 const menu = document.querySelector('.menu');
 const toggleMenu = document.getElementById('toggle-menu');
@@ -268,7 +260,8 @@ function addToCart(id) {
 
 
 
-//Varun Dewan 2019
+//Adaptei este dropdown
+//https://www.cssscript.com/multiple-select-dropdown/
 var $ = {
   get: function (selector) {
     var ele = document.querySelectorAll(selector);
@@ -288,7 +281,6 @@ var $ = {
   }
 };
 
-//Build the plugin
 var drop = function (info) {
   var o = {
     options: info.options,
@@ -336,6 +328,8 @@ var drop = function (info) {
         removed: false
       })
       this.options[index].state = 'remove';
+      this.html.select.options[1].selected = true;
+      console.log(this.html.select.value)
       this.render()
     },
     removeOption: function (e, element) {
@@ -436,7 +430,7 @@ var drop = function (info) {
 }
 
 
-//Set up some data
+//Data de entrada
 var options = [
   { html: 'Pizza', value: '0' },
   { html: 'Sobremesa', value: '1' },

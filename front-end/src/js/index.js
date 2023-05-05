@@ -1,6 +1,9 @@
 const token = localStorage.getItem('token');
-if (!token) {
-  window.location.replace('https://tegrafood.vercel.app/signin.html');
+
+window.onload = () => {
+  if (!token) {
+    window.location.replace('https://tegrafood.vercel.app/signin.html');
+  }
 }
 
 const urlCategorySelected = new URLSearchParams(window.location.search).get("category");
