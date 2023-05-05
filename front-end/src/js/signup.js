@@ -56,7 +56,7 @@ function signup() {
 
   const data = { name, email, password };
 
-  fetch(SIGNIN_URL, {
+  fetch(SIGNUP_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
