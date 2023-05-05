@@ -1,6 +1,6 @@
 const token = localStorage.getItem('token');
 if (!token) {
-  window.location.replace('https://tegrafood.vercel.app/src/signin.html');
+  window.location.replace('https://tegrafood.vercel.app/signin.html');
 }
 
 const URL = `./js/cart.json`;
