@@ -74,6 +74,8 @@ function showProductPopup(product, ...categories) {
   const overlay = document.getElementById("popup-overlay");
   overlay.classList.add('overlay__show');
   overlay.onclick = closePopup;
+  const btnclose = document.getElementById("btn-close");
+  btnclose.onclick = closePopup;
 
   function closePopup(e) {
     if (e.target !== this) return;
@@ -155,30 +157,67 @@ form.addEventListener('submit', (event) => {
 
   const formData = new FormData(event.target);
 
-  const arquivo = document.getElementById("image").files[0];
-  formData.append("imagem", arquivo);
-
   const title = formData.get('title');
-  const description = formData.get('description');
-  const price = formData.get('price');
-  const image = formData.get('imagem');
+  const category = myDrop.selected
+  .map(item => !item.removed ? item.index : undefined)
+  .filter(item => item !== undefined);
 
-  const category = myDrop.selected.map(function (item) {
-    return item.index;
-  });
+  const description = formData.get('description') || '';
+  const price = formData.get('price');
+
+  if (!title) {
+    return showSnackbar('Insira um título');
+  }
+
+  if (category.length === 0) {
+    return showSnackbar('Nenhuma categoria selecionada');
+  }
+
+  if (!price) {
+    return showSnackbar('Insira um valor');
+  }
 
   const id = document.getElementById('product-id').value;
+  const image = document.getElementById("image").files[0];
 
 
-
-  console.log({
-    id,
+  const data = {
     title,
     category,
     description,
     price,
-    image
-  })
+  }
+
+  if (!id) {
+    if (!image) {
+      return showSnackbar('Insira uma imagem');
+    }
+
+    data.image = image;
+  }
+
+  const method = id ? 'PUT' : 'POST';
+  const endpoint = id ? `/${id}` : '';
+  console.log(`${url}${endpoint}`);
+
+  // fetch(url + endpoint, {
+  //   method: method,
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     'Authorization': `Bearer ${token}`
+  //   },
+  //   body: JSON.stringify(data)
+  // }).then(response => {
+  //   showSnackbar('Ação realizada com sucesso')
+
+  //   if (id) {
+
+  //   }
+  // }).catch(error => {
+  //   showSnackbar('Ops! Ocorreu um erro')
+  // });
+
+  console.log(data)
 });
 
 
