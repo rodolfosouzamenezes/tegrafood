@@ -45,7 +45,7 @@ function productHTML(item) {
   const priceFormatted = `R$${price.toFixed(2).replace('.', ',')}`
 
   return `
-    <div class="product">
+    <div class="product" id="${item.id}">
       <div class="product__infos">
         <img src="${item.imageUrl}" alt="${item.title}">
         <div class="product__description">
@@ -56,10 +56,33 @@ function productHTML(item) {
 
       <div class="product__cta">
         <p>${priceFormatted}</p>
-        <button class="btn btn__primary" onclick="addToCart(${item.id})">Comprar</button>
+        <button class="btn btn__primary btn__cart" onclick="addToCart(${item.id})">Comprar</button>
       </div>
     </div>
   `;
+}
+
+function addToCart(id) {
+  const goToCart = () => {
+    window.location.href = './src/cart.html';
+  }
+
+  fetch(`${url}/${id.id}/cart`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then(data => {
+      console.log('ss');
+    })
+    .catch(error => {
+      console.error('Error fetching products:', error);
+    });
+
+  console.log(id.id);
+  
+  showSnackbar('Ítem adicionado ao carrinho', 'ir para o carrinho', goToCart)
 }
 
 function sortProducts(direction) {
@@ -138,13 +161,3 @@ overlay.addEventListener('click', () => {
   overlay.classList.remove("overlay__show");
   menu.classList.remove("menu__show");
 });
-
-function addToCart(id) {
-  const goToCart = () => {
-    window.location.href = './src/cart.html';
-  }
-
-  console.log(id);
-  
-  showSnackbar('Ítem adicionado ao carrinho', 'ir para o carrinho', goToCart)
-}

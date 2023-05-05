@@ -1,4 +1,4 @@
-const SIGNIN_URL = `http://localhost:3333/signup`;
+const SIGNUP_URL = `https://tegrafood-api.onrender.com/signup`;
 
 // Selecionar elementos do DOM
 const nameInput = document.getElementById('name');

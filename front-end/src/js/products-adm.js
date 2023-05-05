@@ -3,7 +3,9 @@ if (!token) {
   window.location.replace('https://tegrafood.vercel.app/signin.html');
 }
 
-if (!localStorage.getItem('isAdmin')) {
+const isAdmin = localStorage.getItem('isAdmin') === "true";
+
+if (!isAdmin) {
   window.location.replace('https://tegrafood.vercel.app/');
 }
 
