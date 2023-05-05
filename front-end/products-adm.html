@@ -106,7 +106,7 @@
     <div class="overlay" id="popup-overlay">
       <div class="popup__container">
         <h1 id="popup-title">Novo item</h1>
-        <form class="form">
+        <form class="form" enctype="multipart/form-data" name="product-id" id="product-id">
           <div class="form__inputs">
             <div class="form__inputs__top">
               <div class="form__inputs__top__left">
@@ -133,7 +133,7 @@
                 <div class="js--image-preview"></div>
                 <div class="upload-options">
                   <label>
-                    <input type="file" class="image-upload" accept="image/*" />
+                    <input type="file"  id="image" class="image-upload" accept="image/*" />
                   </label>
                 </div>
               </div>

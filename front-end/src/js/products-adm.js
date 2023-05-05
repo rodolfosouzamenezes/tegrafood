@@ -92,11 +92,16 @@ function showProductPopup(product, ...categories) {
   const productPrice = document.getElementById('price');
 
   myDrop.selected.length = 0;
+  document.getElementById("image").value = "";
+
   if (product) {
     const titleValue = product.querySelector('.title').textContent;
     const imgValue = product.querySelector('img').src;
     const descriptionValue = product.querySelector('.description').textContent;
     const priceValue = product.querySelector('.product__cta  p').textContent;
+
+
+    document.getElementById('product-id').value = product.id;
 
 
     thumb.style.backgroundImage = `url('${imgValue}')`;
@@ -122,6 +127,7 @@ function showProductPopup(product, ...categories) {
     })
 
   } else {
+    document.getElementById('product-id').value = "";
     thumb.style.backgroundImage = "url('')";
     thumb.classList.remove('js--no-default');
     productTitle.value = '';
@@ -138,29 +144,41 @@ function showProductPopup(product, ...categories) {
 
     myDrop.options[1].state = 'remove';
   }
-  
+
   myDrop.render();
 }
 
 const form = document.querySelector('.form');
 
 form.addEventListener('submit', (event) => {
-  event.preventDefault(); // previne o envio do formulário
+  event.preventDefault();
 
   const formData = new FormData(event.target);
 
+  const arquivo = document.getElementById("image").files[0];
+  formData.append("imagem", arquivo);
+
   const title = formData.get('title');
-  const category = formData.getAll('category');
   const description = formData.get('description');
   const price = formData.get('price');
-  const image = formData.get('image-upload'); // aqui você pega o arquivo de imagem, não o caminho
+  const image = formData.get('imagem');
 
-  // faça o que precisa com os dados do formulário
-  console.log(title);
-  console.log(category);
-  console.log(description);
-  console.log(price);
-  console.log(image);
+  const category = myDrop.selected.map(function (item) {
+    return item.index;
+  });
+
+  const id = document.getElementById('product-id').value;
+
+
+
+  console.log({
+    id,
+    title,
+    category,
+    description,
+    price,
+    image
+  })
 });
 
 
@@ -328,8 +346,6 @@ var drop = function (info) {
         removed: false
       })
       this.options[index].state = 'remove';
-      this.html.select.options[1].selected = true;
-      console.log(this.html.select.value)
       this.render()
     },
     removeOption: function (e, element) {
