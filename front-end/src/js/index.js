@@ -1,6 +1,11 @@
+const token = localStorage.getItem('token');
+if (!token) {
+  window.location.replace('https://tegrafood.vercel.app/src/signin.html');
+}
+
 const urlCategorySelected = new URLSearchParams(window.location.search).get("category");
 const categorySelected = parseInt(urlCategorySelected);
-const url = `https://tegrafood-api.onrender.com/products`;
+const url = `http://localhost:3333/products`;
 
 const CATEGORIES = {
   0: "Pizza",

@@ -1,3 +1,8 @@
+const token = localStorage.getItem('token');
+if (!token) {
+  window.location.replace('https://tegrafood.vercel.app/src/signin.html');
+}
+
 const URL = `./js/cart.json`;
 
 loadProducts();

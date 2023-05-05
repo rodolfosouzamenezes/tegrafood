@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Título e Favicon -->
+  <title>Tegrafood | Cadastro</title>
+  <link rel="icon" type="imagem/png" href="./src/assets/favicon.ico" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./src/styles/auth.css">
+
+  <!-- Font Awesome - Icons -->
+  <script src="https://kit.fontawesome.com/a21c1857b7.js" crossorigin="anonymous"></script>
+
+  <!-- Components -->
+  <script src="./src/components/Snackbar.js" defer></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="container__left">
+      <img src="./src/assets/auth-image.webp" alt="Mesa com diversos alimentos">
+    </div>
+
+    <div class="container__right">
+      <a href="./signin.html" class="btn__back">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+      <div class="content">
+        <h1 class="subtitle">Vamos começar!</h1>
+        <p class="description">crie uma nova conta</p>
+
+        <form id="form-signup" class="form__container">
+          <div class="input__container">
+            <i class="far fa-user"></i>
+            <input placeholder="Nome" id="name" type="text">
+          </div>
+          <div class="input__container">
+            <i class="far fa-envelope"></i>
+            <input placeholder="Email" id="email" type="email">
+          </div>
+          <div class="input__container">
+            <i class="fas fa-lock"></i>
+            <input placeholder="Senha" id="password" type="password">
+          </div>
+          <div class="input__container">
+            <i class="fas fa-lock"></i>
+            <input placeholder="Confirme a senha" id="confirm-password" type="password">
+          </div>
+
+          <button id="btn-send" class="btn btn__primary" disabled>Entrar</button>
+        </form>
+
+        <p class="description">
+          Já tem uma conta? <a href="./signin.html">Entrar</a>
+        </p>
+      </div>
+    </div>
+    <my-snackbar></my-snackbar>
+  </div>
+
+  <!-- JS -->
+  <script src="./src/js/signup.js"></script>
+</body>
+
+</html>

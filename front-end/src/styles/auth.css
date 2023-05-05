@@ -97,6 +97,38 @@
   border-radius: 3px;
 }
 
+.input__container {
+  display: flex;
+  width: 100%;
+  margin-bottom: 28px;
+  border: 1px solid #EBF0FF;
+  border-radius: 5px;
+}
+
+.input__container > i {
+  padding: 16px;      
+  font-size: 20px;
+  color: #9098B1;
+}
+
+.input__container > input {
+  flex: 1;
+  border: none;
+  padding: 16px;      
+  outline: none;
+  color: var(--info-color);
+  font-size: 14px;
+}
+
+.input__container > input::placeholder {
+  font-size: 14px;
+  color: #9098B1;
+}
+
+.input__container:focus-within {
+  outline: 2px solid var(--primary-color);
+}
+
 @media (max-width: 1066px) {
   .container__left {
     display: none;

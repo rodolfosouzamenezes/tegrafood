@@ -8,22 +8,22 @@
 
   <!-- Título e Favicon -->
   <title>Tegrafood | Login</title>
-  <link rel="icon" type="imagem/png" href="./assets/favicon.ico" />
+  <link rel="icon" type="imagem/png" href="./src/assets/favicon.ico" />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="./styles/auth.css">
+  <link rel="stylesheet" href="./src/styles/auth.css">
 
   <!-- Font Awesome - Icons -->
   <script src="https://kit.fontawesome.com/a21c1857b7.js" crossorigin="anonymous"></script>
 
   <!-- Components -->
-  <script src="./components/FormInput.js" defer></script>
+  <script src="./src/components/Snackbar.js" defer></script>
 </head>
 
 <body>
   <div class="container">
     <div class="container__left">
-      <img src="./assets/auth-image.webp" alt="Mesa com diversos alimentos">
+      <img src="./src/assets/auth-image.webp" alt="Mesa com diversos alimentos">
     </div>
 
     <div class="container__right">
@@ -32,17 +32,23 @@
         <p class="description">faça o login para continuar</p>
 
         <form id="form-signin" class="form__container">
-          <form-input icon-class="far fa-envelope" type="email" placeholder="Email" input-id="email"></form-input>
-          <form-input icon-class="fas fa-lock" type="password" placeholder="Senha" input-id="password"></form-input>
+          <div class="input__container">
+            <i class="far fa-envelope"></i>
+            <input placeholder="Email" id="email" type="email">
+          </div>
+          <div class="input__container">
+            <i class="fas fa-lock"></i>
+            <input placeholder="Senha" id="password" type="password">
+          </div>
 
-          <button type="submit" class="btn btn__primary">Entrar</button>
+          <button id="btn-send" class="btn btn__primary" disabled>Entrar</button>
         </form>
 
         <div class="line-center">
           <span>ou</span>
         </div>
 
-        <button type="submit" class="btn btn__bubble">
+        <button id="btn-google" type="submit" class="btn btn__bubble">
           <i class="fab fa-google"></i>
           Entrar com Google
           <span></span>
@@ -57,10 +63,12 @@
       </div>
 
     </div>
+    <my-snackbar></my-snackbar>
   </div>
 
   <!-- JS -->
-  <script src="./js/auth.js"></script>
+  <script src="./src/js/signin.js"></script>
+
 </body>
 
 </html>
