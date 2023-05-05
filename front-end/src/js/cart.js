@@ -3,15 +3,20 @@ if (!token) {
   window.location.replace('https://tegrafood.vercel.app/signin.html');
 }
 
-const URL = `./js/cart.json`;
+const url = `https://tegrafood-api.onrender.com/cart`;
 
 loadProducts();
 
 function loadProducts() {
-  fetch(URL)
+  fetch(url, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  })
     .then(response => response.json())
     .then(data => {
-      const productsHTML = data.map((product) => generateProductHTML(product));
+      const productsHTML = data.cartProducts.map((product) => generateProductHTML(product));
       const cardsContainer = document.querySelector('.cards__container');
       cardsContainer.innerHTML = productsHTML.join('');
       calculateTotal();
@@ -20,28 +25,30 @@ function loadProducts() {
 }
 
 function generateProductHTML(product) {
-  const { title, description = "", price, imgUrl, quantity, id } = product;
+  const price = product.priceInCents / 100;
+  const priceFormatted = `R$${price.toFixed(2).replace('.', ',')}`
+
   return `
-    <div class="product__container" id="product-${id}">
+    <div class="product__container" id="${product.id}">
       <div class="card__container">
         <div class="card__infos">
-          <img src="${imgUrl}" alt="${title}">
+          <img src="${product.imageUrl}" alt="${product.title}">
           <div class="card__description">
-            <h2 class="title">${title}</h2>
-            <p class="description">${description}</p>
+            <h2 class="title">${product.title}</h2>
+            <p class="description">${product.description || ""}</p>
           </div>
         </div>
 
         <div class="card__cta">
-          <p>${price}</p>
+          <p>${priceFormatted}</p>
           <div class="quantity__container">
-            <button onclick="changeQuantity('-', ${id})" class="btn btn__primary">-</button>
-            <div class="quantity">${quantity}x</div>
-            <button onclick="changeQuantity('+', ${id})" class="btn btn__primary">+</button>
+            <button onclick="changeQuantity('-', ${product.id})" class="btn btn__primary">-</button>
+            <div class="quantity">${product.quantity}x</div>
+            <button onclick="changeQuantity('+', ${product.id})" class="btn btn__primary">+</button>
           </div>
         </div>
       </div>
-      <button onclick="removeFromCart(${id})" class="btn btn__remove">
+      <button onclick="removeFromCart(${product.id})" class="btn btn__remove">
         <i class="fa fa-trash"></i>
       </button>
     </div>
@@ -60,9 +67,9 @@ couponInput.addEventListener('input', () => {
   }
 });
 
-function changeQuantity(operation, productId) {
-  const product = document.querySelector(`#product-${productId} .quantity`);
-  let quantity = parseInt(product.textContent);
+function changeQuantity(operation, product) {
+  const quantityP = product.querySelector(`.quantity`);
+  let quantity = parseInt(quantityP.textContent);
 
   if (operation === '+') {
     quantity++;
@@ -70,17 +77,42 @@ function changeQuantity(operation, productId) {
     quantity--;
   }
 
-  product.textContent = `${quantity}x`;
+  const data = { quantity };
 
-  calculateTotal()
+
+  fetch(`${url}/${product.id}/quantity`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(data)
+  })
+    .then(() => {
+      quantityP.textContent = `${quantity}x`;
+
+      calculateTotal()
+    })
+    .catch(error => {
+      console.error('Error fetching products:', error);
+    });
 }
 
-function removeFromCart(productId) {
-  const product = document.querySelector(`#product-${productId}`)
+function removeFromCart(product) {
+  fetch(`${url}/${product.id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then(() => {
+      product.remove();
 
-  product.remove();
-
-  calculateTotal();
+      calculateTotal()
+    })
+    .catch(error => {
+      console.error('Error fetching products:', error);
+    });
 }
 
 
@@ -175,15 +207,26 @@ function setShipping() {
 function finalizeOrder() {
   const container = document.querySelector('.cards__container');
 
-  container.innerHTML = '';
+  fetch(url, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  })
+    .then(() => {
+      container.innerHTML = '';
 
-  const subTotalHTML = document.getElementById('sub-total');
-  const discountHTML = document.getElementById('discount');
-  const shippingHTML = document.getElementById('shipping');
-  const totalHTML = document.getElementById('total');
+      const subTotalHTML = document.getElementById('sub-total');
+      const discountHTML = document.getElementById('discount');
+      const shippingHTML = document.getElementById('shipping');
+      const totalHTML = document.getElementById('total');
 
-  subTotalHTML.textContent = "R$0,00";
-  discountHTML.textContent = "00%";
-  shippingHTML.textContent = "Calcular";
-  totalHTML.textContent = "R$0,00";
+      subTotalHTML.textContent = "R$0,00";
+      discountHTML.textContent = "00%";
+      shippingHTML.textContent = "Calcular";
+      totalHTML.textContent = "R$0,00";
+    })
+    .catch(error => {
+      console.error('Error fetching products:', error);
+    });
 }

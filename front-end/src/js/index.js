@@ -5,7 +5,7 @@ if (!token) {
 
 const urlCategorySelected = new URLSearchParams(window.location.search).get("category");
 const categorySelected = parseInt(urlCategorySelected);
-const url = `http://localhost:3333/products`;
+const url = `https://tegrafood-api.onrender.com/products`;
 
 const CATEGORIES = {
   0: "Pizza",
@@ -64,7 +64,7 @@ function productHTML(item) {
 
 function addToCart(id) {
   const goToCart = () => {
-    window.location.href = './src/cart.html';
+    window.location.href = './cart.html';
   }
 
   fetch(`${url}/${id.id}/cart`, {
@@ -73,16 +73,13 @@ function addToCart(id) {
       'Authorization': `Bearer ${token}`,
     },
   })
-    .then(data => {
-      console.log('ss');
+    .then(() => {
+      showSnackbar('Ítem adicionado ao carrinho', 'ir para o carrinho', goToCart)
     })
     .catch(error => {
       console.error('Error fetching products:', error);
     });
-
-  console.log(id.id);
   
-  showSnackbar('Ítem adicionado ao carrinho', 'ir para o carrinho', goToCart)
 }
 
 function sortProducts(direction) {

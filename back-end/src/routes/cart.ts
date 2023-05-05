@@ -67,19 +67,24 @@ export async function cartRoutes(fastify: FastifyInstance) {
       quantity: z.number(),
     })
 
-    const { cartId } = cartQuantityParams.parse(request.params);
-    const { quantity } = cartQuantityBody.parse(request.body);
+    try {
+      const { cartId } = cartQuantityParams.parse(request.params);
+      const { quantity } = cartQuantityBody.parse(request.body);
 
-    await prisma.cart.update({
-      where: {
-        id: cartId,
-      },
-      data: {
-        quantity,
-      }
-    })
+      await prisma.cart.update({
+        where: {
+          id: cartId,
+        },
+        data: {
+          quantity,
+        }
+      })
+      return reply.status(200).send();
+    } catch (error) {
+      console.error(error);
+      throw new Error('Não foi posssivel modificar a quantidade')
+    }
 
-    return reply.status(200).send();
   })
 
   fastify.delete('/cart/:cartId', {
