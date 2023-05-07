@@ -158,22 +158,22 @@ form.addEventListener('submit', (event) => {
   const formData = new FormData(event.target);
 
   const title = formData.get('title');
-  const category = myDrop.selected
+  const categories = myDrop.selected
   .map(item => !item.removed ? item.index : undefined)
   .filter(item => item !== undefined);
 
   const description = formData.get('description') || '';
-  const price = formData.get('price');
+  const priceInCents = Number(formData.get('price')) * 100;
 
   if (!title) {
     return showSnackbar('Insira um título');
   }
 
-  if (category.length === 0) {
+  if (categories.length === 0) {
     return showSnackbar('Nenhuma categoria selecionada');
   }
 
-  if (!price) {
+  if (!priceInCents) {
     return showSnackbar('Insira um valor');
   }
 
@@ -183,9 +183,9 @@ form.addEventListener('submit', (event) => {
 
   const data = {
     title,
-    category,
+    categories,
     description,
-    price,
+    priceInCents,
   }
 
   if (!id) {
@@ -217,7 +217,7 @@ form.addEventListener('submit', (event) => {
   //   showSnackbar('Ops! Ocorreu um erro')
   // });
 
-  console.log(data)
+  // console.log(data)
 });
 
 
