@@ -5,7 +5,9 @@ import { prisma } from "../lib/prisma";
 import { authenticate } from "../plugins/authenticate";
 
 export async function productRoutes(fastify: FastifyInstance) {
-  fastify.get('/products', async () => {
+  fastify.get('/products', {
+    onRequest: [authenticate]
+  }, async () => {
     const products = await prisma.product.findMany();
 
     return { products }
