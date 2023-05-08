@@ -1,4 +1,5 @@
 ## Tecnologias: HTML, CSS E JS
+LINK DO DEPLOY: https://tegrafood.vercel.app/
 
 ## Autenticação
 ![Auth](../front-end/docs/auth.png)
