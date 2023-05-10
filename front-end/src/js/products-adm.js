@@ -13,7 +13,7 @@ window.onload = () => {
 
 const urlCategorySelected = new URLSearchParams(window.location.search).get("category");
 const categorySelected = parseInt(urlCategorySelected);
-const url = `https://tegrafood.vercel.app/products`;
+const url = `https://tegrafood-api.onrender.com/products`;
 
 const CATEGORIES = {
   0: "Pizza",
