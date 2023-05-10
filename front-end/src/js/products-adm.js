@@ -13,7 +13,7 @@ window.onload = () => {
 
 const urlCategorySelected = new URLSearchParams(window.location.search).get("category");
 const categorySelected = parseInt(urlCategorySelected);
-const url = `http://localhost:3333/products`;
+const url = `https://tegrafood.vercel.app/products`;
 
 const CATEGORIES = {
   0: "Pizza",
@@ -38,6 +38,10 @@ function loadProducts() {
   fetch(url)
     .then(response => response.json())
     .then(data => {
+      if (data.statusCode === 401) {
+        window.location.replace('https://tegrafood.vercel.app/signin.html')
+      }
+
       const products = data.products.filter((item) => {
         return !isCategoryValid || item.categories.includes(categorySelected);
       }).map((item) => productHTML(item));

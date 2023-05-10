@@ -17,7 +17,7 @@ async function bootstrap() {
   })
 
   await app.register(cors, {
-    origin: ["http://127.0.0.1:5500", "https://tegrafood.vercel.app"],
+    origin: true,
   })
 
   // Registrando as rotas
